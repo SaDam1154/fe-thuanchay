@@ -75,7 +75,7 @@ const groupMenus = [
         main: {
             iconClassname: 'fa-solid fa-box-open',
             text: 'Bài viết',
-            link: '/post',
+            link: '/posts',
         },
         children: [
             {

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { publicRoutes } from './routes';
 import DefaultLayout from './layouts/DefaultLayout';
 import AuthLayout from './layouts/AuthLayout';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
     return (
@@ -34,6 +35,7 @@ function App() {
                         );
                     })}
                 </Routes>
+                <ToastContainer hideProgressBar />
             </div>
         </Router>
     );

@@ -1,6 +1,40 @@
+// Layouts
+import FullLayout from '../layouts/FullLayout';
+
+// Pages
 import Home from '../pages/Home';
+import Order from '../pages/Order';
+import Accounts from '../pages/Account';
+import AddAccount from '../pages/AddAccount';
+import DetailAccount from '../pages/DetailAccount';
+import UpdateAccount from '../pages/UpdateAccount';
+import AddOrder from '../pages/AddOrder';
 import Products from '../pages/Products';
 import AddProduct from '../pages/AddProduct';
+import ProductType from '../pages/ProductType';
+import ProductsView from '../pages/ProductsView';
+import Customers from '../pages/Customers';
+import Statistic from '../pages/Statistic';
+import DetailProduct from '../pages/DetailProduct';
+import DetailCustomer from '../pages/DetailCustomer';
+import Login from '../pages/Login';
+import Roles from '../pages/Roles';
+import AddRole from '../pages/AddRole';
+import UpdateRole from '../pages/UpdateRole';
+import UpdateProduct from '../pages/UpdateProduct';
+import AddCustomer from '../pages/AddCustomer';
+import UpdateCustomer from '../pages/UpdateCustomer';
+import AddProductType from '../pages/AddProductType';
+import DetailProductType from '../pages/DetailProductType';
+import UpdateProductType from '../pages/UpdateProductType';
+import DetailOrder from '../pages/DetailOrder';
+import DetailRole from '../pages/DetailRole';
+import Posts from '../pages/Posts';
+import AddPost from '../pages/AddPost';
+import UpdatePost from '../pages/UpdatePost';
+import DetailPost from '../pages/DetailPost';
+
+// Public routes
 const publicRoutes = [
     {
         path: '/',
@@ -13,7 +47,7 @@ const publicRoutes = [
     // ORDER
     {
         path: '/order',
-        component: Home,
+        component: Order,
         props: {
             heading: 'Danh sách hoá đơn',
         },
@@ -21,21 +55,21 @@ const publicRoutes = [
 
     {
         path: '/order/add',
-        component: Home,
+        component: AddOrder,
         props: {
             heading: 'Đặt thêm sản phẩm',
         },
     },
     {
         path: '/order/detail/:id',
-        component: Home,
+        component: DetailOrder,
         props: {
             heading: 'Chi tiết hoá đơn',
         },
     },
     {
         path: 'order/statistic',
-        component: Home,
+        component: Statistic,
         props: {
             heading: 'Thống kê',
         },
@@ -51,7 +85,7 @@ const publicRoutes = [
     },
     {
         path: '/product/detail/:id',
-        component: Home,
+        component: DetailProduct,
         props: {
             heading: 'Chi tiết sản phẩm',
         },
@@ -65,14 +99,14 @@ const publicRoutes = [
     },
     {
         path: '/product/update/:id',
-        component: Home,
+        component: UpdateProduct,
         props: {
             heading: 'Chỉnh sửa sản phẩm',
         },
     },
     {
         path: '/product/views',
-        component: Home,
+        component: ProductsView,
         props: {
             heading: 'Danh sách sản phẩm dạng lưới',
         },
@@ -81,93 +115,88 @@ const publicRoutes = [
     // PRODUCT TYPE
     {
         path: '/product-type',
-        component: Home,
+        component: ProductType,
         props: {
             heading: 'Danh sách loại cây',
         },
     },
     {
         path: '/product-type/add',
-        component: Home,
+        component: AddProductType,
         props: {
             heading: 'Thêm mới loại sản phẩm',
         },
     },
     {
         path: '/product-type/detail/:id',
-        component: Home,
+        component: DetailProductType,
         props: {
             heading: 'Chi tiết loại sản phẩm',
         },
     },
     {
         path: '/product-type/update/:id',
-        component: Home,
+        component: UpdateProductType,
         props: {
             heading: 'Chỉnh sửa loại sản phẩm',
         },
     },
-    // Post
+
+    // POST
     {
-        path: '/post',
-        component: Home,
+        path: '/posts',
+        component: Posts,
         props: {
             heading: 'Danh sách bài viết',
         },
     },
     {
-        path: '/post/detail/:id',
-        component: Home,
+        path: '/posts/detail/:id',
+        component: DetailPost,
         props: {
             heading: 'Chi tiết bài viết',
         },
     },
     {
-        path: '/post/add',
-        component: Home,
+        path: '/posts/add',
+        component: AddPost,
         props: {
             heading: 'Thêm bài viết',
         },
     },
     {
-        path: '/post/update/:id',
-        component: Home,
+        path: '/posts/update/:id',
+        component: UpdatePost,
         props: {
             heading: 'Chỉnh sửa bài viết',
         },
     },
-    {
-        path: '/post/views',
-        component: Home,
-        props: {
-            heading: 'Danh sách bài viết dạng lưới',
-        },
-    },
+
     // CUSTOMER
     {
         path: '/customer',
-        component: Home,
+        component: Customers,
         props: {
             heading: 'Khách hàng',
         },
     },
     {
         path: '/customer/detail/:id',
-        component: Home,
+        component: DetailCustomer,
         props: {
             heading: 'Chi tiết khách hàng',
         },
     },
     {
         path: '/customer/add',
-        component: Home,
+        component: AddCustomer,
         props: {
             heading: 'Thêm khách hàng',
         },
     },
     {
         path: '/customer/update/:id',
-        component: Home,
+        component: UpdateCustomer,
         props: {
             heading: 'Chỉnh sửa khách hàng',
         },
@@ -175,28 +204,28 @@ const publicRoutes = [
     // Account
     {
         path: '/account',
-        component: Home,
+        component: Accounts,
         props: {
             heading: 'Tài khoản',
         },
     },
     {
         path: '/account/add',
-        component: Home,
+        component: AddAccount,
         props: {
             heading: 'Thêm tài khoản',
         },
     },
     {
         path: '/account/update/:id',
-        component: Home,
+        component: UpdateAccount,
         props: {
             heading: 'Chỉnh sửa tài khoản',
         },
     },
     {
         path: '/account/detail/:id',
-        component: Home,
+        component: DetailAccount,
         props: {
             heading: 'Chi tiết tài khoản',
         },
@@ -205,11 +234,48 @@ const publicRoutes = [
     // *****
 
     {
+        path: '/role',
+        component: Roles,
+        props: {
+            heading: 'Quy định',
+        },
+    },
+    {
+        path: '/role/add',
+        component: AddRole,
+        props: {
+            heading: 'Thêm chức vụ',
+        },
+    },
+    {
+        path: '/role/detail/:id',
+        component: DetailRole,
+        props: {
+            heading: 'Chi tiết chức vụ',
+        },
+    },
+    {
+        path: '/role/update/:id',
+        component: UpdateRole,
+        props: {
+            heading: 'Sửa chức vụ',
+        },
+    },
+    {
+        path: '/roles/detail/:id',
+        component: DetailRole,
+        props: {
+            heading: 'Chi tiết chức vụ',
+        },
+    },
+
+    {
         path: '/login',
-        // layout: FullLayout,
-        component: Home,
+        layout: FullLayout,
+        component: Login,
     },
 ];
 
 const privateRoutes = [];
+
 export { publicRoutes, privateRoutes };
