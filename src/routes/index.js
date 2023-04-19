@@ -117,7 +117,7 @@ const publicRoutes = [
         path: '/product-type',
         component: ProductType,
         props: {
-            heading: 'Danh sách loại cây',
+            heading: 'Danh sách loại sản phẩm',
         },
     },
     {

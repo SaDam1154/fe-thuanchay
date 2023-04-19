@@ -13,7 +13,7 @@ function Home() {
         <div className="container flex h-full w-full items-center justify-center space-x-11">
             <div className=" space-y-3 text-gray-600">
                 <p className="text-center text-4xl font-extrabold text-green-600">QUẢN LÝ</p>
-                <p className="text-center text-3xl font-bold text-green-600">CỬA HÀNG CÂY XANH</p>
+                <p className="text-center text-3xl font-bold text-green-600">CỬA HÀNG THỰC PHẨM THUẦN CHAY</p>
                 <p className="text-xl font-bold">Nếu cần hỗ trợ kỹ thuật, vui lòng thực hiện một trong ba cách sau: </p>
                 <p className="text-lg ">
                     1. Truy cập{' '}
