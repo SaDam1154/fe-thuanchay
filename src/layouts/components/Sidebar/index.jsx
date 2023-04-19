@@ -10,9 +10,111 @@ const groupMenus = [
     },
     {
         main: {
+            iconClassname: 'fa-solid fa-clipboard',
+            text: 'Hoá đơn',
+            link: '/order',
+        },
+        children: [
+            {
+                iconClassname: 'fa-solid fa-list',
+                text: 'Danh sách',
+                link: '/',
+            },
+            {
+                iconClassname: 'fa-solid fa-circle-plus',
+                text: 'Thêm',
+                link: '/add',
+            },
+            {
+                iconClassname: 'fa-solid fa-table',
+                text: 'Thống kê',
+                link: '/statistic',
+            },
+        ],
+    },
+    {
+        main: {
             iconClassname: 'fa-solid fa-box-open',
             text: 'Sản phẩm',
             link: '/product',
+        },
+        children: [
+            {
+                iconClassname: 'fa-solid fa-list',
+                text: 'Danh sách',
+                link: '/',
+            },
+            {
+                iconClassname: 'fa-solid fa-circle-plus',
+                text: 'Thêm',
+                link: '/add',
+            },
+        ],
+    },
+
+    {
+        main: {
+            iconClassname: 'fa-solid fa-boxes-stacked',
+            text: 'Loại sản phẩm',
+            link: '/product-type',
+        },
+        children: [
+            {
+                iconClassname: 'fa-solid fa-list',
+                text: 'Danh sách',
+                link: '/',
+            },
+            {
+                iconClassname: 'fa-solid fa-circle-plus',
+                text: 'Thêm',
+                link: '/add',
+            },
+        ],
+    },
+    {
+        main: {
+            iconClassname: 'fa-solid fa-box-open',
+            text: 'Bài viết',
+            link: '/post',
+        },
+        children: [
+            {
+                iconClassname: 'fa-solid fa-list',
+                text: 'Danh sách',
+                link: '/',
+            },
+            {
+                iconClassname: 'fa-solid fa-circle-plus',
+                text: 'Thêm',
+                link: '/add',
+            },
+        ],
+    },
+    {
+        main: {
+            iconClassname: 'fa-solid fa-users',
+            text: 'Khách hàng',
+            link: '/customer',
+        },
+        children: [
+            {
+                iconClassname: 'fa-solid fa-list',
+                text: 'Danh sách',
+                link: '/',
+            },
+            {
+                iconClassname: 'fa-solid fa-circle-plus',
+                text: 'Thêm',
+                link: '/add',
+            },
+        ],
+    },
+
+    {
+        main: {
+            iconClassname: ' fa-solid fa-user',
+            text: 'Tài khoản',
+            link: '/account',
         },
         children: [
             {
