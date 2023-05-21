@@ -139,7 +139,7 @@ function Orders() {
         return false;
     }
 
-    // const account = useSelector(accountSelector);
+    const account = useSelector(accountSelector);
     function isHiddenItem(functionName) {
         // if (!account) {
         //     return true;
@@ -159,40 +159,40 @@ function Orders() {
     }, []);
 
     function getOrders() {
-        // fetch('http://localhost:5000/api/order')
-        //     .then((res) => res.json())
-        //     .then((resJson) => {
-        //         if (resJson.success) {
-        //             setOrders(resJson.orders);
-        //         } else {
-        //             setOrders([]);
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         console.log(error);
-        //         setOrders([]);
-        //     });
+        fetch('http://localhost:5000/api/order')
+            .then((res) => res.json())
+            .then((resJson) => {
+                if (resJson.success) {
+                    setOrders(resJson.orders);
+                } else {
+                    setOrders([]);
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+                setOrders([]);
+            });
     }
 
     function deleteOrder(id) {
-        // fetch('http://localhost:5000/api/order/' + id, {
-        //     method: 'DELETE',
-        // })
-        //     .then((res) => res.json())
-        //     .then((resJson) => {
-        //         setShowDeleteDialog(false);
-        //         if (resJson) {
-        //             showDeleteNoti();
-        //             console.log('xóa');
-        //             getOrders();
-        //         } else {
-        //             showErorrNoti();
-        //         }
-        //     })
-        //     .catch(() => {
-        //         showErorrNoti();
-        //         setShowDeleteDialog(false);
-        //     });
+        fetch('http://localhost:5000/api/order/' + id, {
+            method: 'DELETE',
+        })
+            .then((res) => res.json())
+            .then((resJson) => {
+                setShowDeleteDialog(false);
+                if (resJson) {
+                    showDeleteNoti();
+                    console.log('xóa');
+                    getOrders();
+                } else {
+                    showErorrNoti();
+                }
+            })
+            .catch(() => {
+                showErorrNoti();
+                setShowDeleteDialog(false);
+            });
     }
 
     function linkToDetail(id) {

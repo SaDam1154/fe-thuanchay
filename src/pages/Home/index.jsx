@@ -45,7 +45,11 @@ function Home() {
                     <span>Đăng xuất</span>
                 </button>
             </div>
-            <img className="w-[40vw] " src="/home-img.jpg" />
+            <img
+                className="w-[40vw] "
+                src="https://png.pngtree.com/png-vector/20220518/ourlarge/pngtree-vegan-icon-png-image_4697174.png
+"
+            />
         </div>
     );
 }

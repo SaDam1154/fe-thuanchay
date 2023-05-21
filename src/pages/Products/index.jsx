@@ -6,111 +6,8 @@ import Filter from './Filter';
 import PriceFormat from '../../components/PriceFormat';
 import clsx from 'clsx';
 
-// import { useSelector } from 'react-redux';
-// import { accountSelector } from '../../redux/selectors';
-let tmpproduct = [
-    {
-        name: 'Thực phẩm 1',
-        id: '1',
-        price: '99000',
-        type: {
-            name: 'Loại khô',
-        },
-        image: 'https://picsum.photos/id/237/200/300',
-        quantity: '99',
-    },
-    {
-        name: 'Thực phẩm 2',
-        id: '2',
-        price: '99000',
-        type: {
-            name: 'Ăn sáng',
-        },
-        image: 'https://picsum.photos/id/237/200/300',
-        quantity: '99',
-    },
-    {
-        name: 'Thực phẩm 3',
-        id: '3',
-        price: '99000',
-        type: {
-            name: 'Rau sạch',
-        },
-        image: 'https://picsum.photos/id/237/200/300',
-        quantity: '99',
-    },
-    {
-        name: 'Thực phẩm 4',
-        id: '4',
-        price: '99000',
-        type: {
-            name: 'Ngũ cốc',
-        },
-        image: 'https://picsum.photos/id/237/200/300',
-        quantity: '99',
-    },
-    {
-        name: 'Thực phẩm 5',
-        id: '5',
-        price: '99000',
-        type: {
-            name: 'Ăn vặt',
-        },
-        image: 'https://picsum.photos/id/237/200/300',
-        quantity: '99',
-    },
-    {
-        name: 'Thực phẩm 6',
-        id: '6',
-        price: '99000',
-        type: {
-            name: 'Loại khô',
-        },
-        image: 'https://picsum.photos/id/237/200/300',
-        quantity: '99',
-    },
-    {
-        name: 'Thực phẩm 7',
-        id: '7',
-        price: '99000',
-        type: {
-            name: 'Loại khô',
-        },
-        image: 'https://picsum.photos/id/237/200/300',
-        quantity: '99',
-    },
-    {
-        name: 'Thực phẩm 8',
-        id: '8',
-        price: '99000',
-        type: {
-            name: 'Loại khô',
-        },
-        image: 'https://picsum.photos/id/237/200/300',
-        quantity: '99',
-    },
-    {
-        name: 'Thực phẩm 9',
-        id: '9',
-        price: '99000',
-        type: {
-            name: 'Ăn dậm',
-        },
-        image: 'https://picsum.photos/id/237/200/300',
-        quantity: '99',
-    },
-    {
-        name: 'Thực phẩm 10',
-        id: '10',
-        price: '99000',
-        type: {
-            name: 'Quà tặng',
-        },
-        image: 'https://picsum.photos/id/237/200/300',
-        quantity: '99',
-    },
-];
-
+import { useSelector } from 'react-redux';
+import { accountSelector } from '../../redux/selectors';
 function removeVietnameseTones(stra) {
     var str = stra;
     str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, 'a');
@@ -145,61 +42,61 @@ function Products() {
     const [showDeleteDialog, setShowDeleteDialog] = useState(false);
     const [deletingProductId, setDeletingProductId] = useState(null);
     const [search, setSearch] = useState('');
-    const [products, setProducts] = useState(tmpproduct);
+    const [products, setProducts] = useState();
     const [filters, setFilters] = useState({});
     const navigate = useNavigate();
     const showDeleteNoti = () => toast.success('Xóa sản phẩm thành công!');
     const showErorrNoti = () => toast.error('Có lỗi xảy ra!');
-    // const account = useSelector(accountSelector);
-    // function isHiddenItem(functionName) {
-    //     if (!account) {
-    //         return true;
-    //     }
-    //     if (!functionName) {
-    //         return false;
-    //     }
-    //     const findResult = account?.functions?.find((_func) => _func?.name === functionName);
-    //     if (findResult) {
-    //         return false;
-    //     }
-    //     return true;
-    // }
+    const account = useSelector(accountSelector);
+    function isHiddenItem(functionName) {
+        if (!account) {
+            return true;
+        }
+        if (!functionName) {
+            return false;
+        }
+        const findResult = account?.functions?.find((_func) => _func?.name === functionName);
+        if (findResult) {
+            return false;
+        }
+        return true;
+    }
 
     useEffect(() => {
         getProducts();
     }, [filters]);
 
     function getProducts() {
-        // fetch('http://localhost:5000/api/product?' + `filters=${JSON.stringify(filters)}`)
-        //     .then((res) => res.json())
-        //     .then((resJson) => {
-        //         if (resJson.success) {
-        //             setProducts(resJson.products);
-        //         } else {
-        //             setProducts([]);
-        //         }
-        //     });
+        fetch('http://localhost:5000/api/product?' + `filters=${JSON.stringify(filters)}`)
+            .then((res) => res.json())
+            .then((resJson) => {
+                if (resJson.success) {
+                    setProducts(resJson.products);
+                } else {
+                    setProducts([]);
+                }
+            });
     }
 
     function deleteProduct(id) {
-        // fetch('http://localhost:5000/api/product/' + id, {
-        //     method: 'DELETE',
-        // })
-        //     .then((res) => res.json())
-        //     .then((resJson) => {
-        //         setShowDeleteDialog(false);
-        //         if (resJson) {
-        //             showDeleteNoti();
-        //             console.log('xóa');
-        //             getProducts();
-        //         } else {
-        //             showErorrNoti();
-        //         }
-        //     })
-        //     .catch(() => {
-        //         showErorrNoti();
-        //         setShowDeleteDialog(false);
-        //     });
+        fetch('http://localhost:5000/api/product/' + id, {
+            method: 'DELETE',
+        })
+            .then((res) => res.json())
+            .then((resJson) => {
+                setShowDeleteDialog(false);
+                if (resJson) {
+                    showDeleteNoti();
+                    console.log('xóa');
+                    getProducts();
+                } else {
+                    showErorrNoti();
+                }
+            })
+            .catch(() => {
+                showErorrNoti();
+                setShowDeleteDialog(false);
+            });
     }
 
     function linkToDetail(id) {
@@ -278,7 +175,7 @@ function Products() {
 
                     <tbody className="flex h-[75vh] w-full flex-col" style={{ overflowY: 'overlay' }}>
                         {products
-                            .filter((product) => {
+                            ?.filter((product) => {
                                 if (search === '') {
                                     return product;
                                 } else {

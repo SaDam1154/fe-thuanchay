@@ -21,7 +21,7 @@ function CustomerInput({ setIsValid }) {
     const [isExistCustomer, setIsExistCustomer] = useState(false);
 
     const dispatch = useDispatch();
-    // const customer = useSelector(orderSelector)?.customer;
+    const customer = useSelector(orderSelector)?.customer;
 
     const formik = useFormik({
         initialValues: {

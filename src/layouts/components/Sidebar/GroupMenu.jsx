@@ -17,7 +17,7 @@ function GroupMenu({ groupMenu }) {
         <li>
             <MainComp
                 className={clsx(
-                    'flex cursor-pointer select-none  items-center justify-between rounded-md px-4 py-3 text-white hover:bg-blue-400',
+                    'flex cursor-pointer select-none  items-center justify-between rounded-md px-4 py-3 text-white bg  hover:bg-blue-400',
                     {
                         'bg-blue-400': pathFirst === mainPath,
                     }
