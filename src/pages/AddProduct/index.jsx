@@ -53,9 +53,9 @@ function Addroduct() {
                     setLoading(false);
                     showSuccessNoti();
                     // setTimeout(() => {
-                    //     navigate('/product');
+                    //     navigate('/admin/product');
                     // }, 4000);
-                    // navigate('/product');
+                    // navigate('/admin/product');
                     bacsicForm.resetForm();
                 } else {
                     setLoading(false);

@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { accountActions } from '../../redux/slices/accountSlide';
 
 function Home() {
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const showLogoutNoti = () => toast.info('Đã đăng xuất!');
 
     return (
@@ -35,7 +35,7 @@ function Home() {
                 <button
                     className="btn btn-md btn-blue"
                     onClick={() => {
-                        // dispatch(accountActions.logout());
+                        dispatch(accountActions.logout());
                         showLogoutNoti();
                     }}
                 >

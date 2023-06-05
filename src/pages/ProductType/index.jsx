@@ -79,7 +79,7 @@ function ProductType() {
     }
 
     function linkToDetail(id) {
-        navigate('/product-type/detail/' + id);
+        navigate('/admin/product-type/detail/' + id);
     }
 
     function deleteProductType(id) {
@@ -136,7 +136,7 @@ function ProductType() {
                         </div>
 
                         <Link
-                            to="/product-type/add"
+                            to="/admin/product-type/add"
                             className={clsx('btn btn-md btn-green', {
                                 hidden: isHiddenItem('product-type/create'),
                             })}

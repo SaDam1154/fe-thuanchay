@@ -1,5 +1,14 @@
+import PostCartSection from '../../components/PostCardSection';
+import { useParams } from 'react-router-dom';
 function DetailPost() {
-    return <h2>DetailPost</h2>;
+    const { id } = useParams();
+    return (
+        <>
+            <div className="flex h-full max-h-[85vh] flex-col" style={{ overflowY: 'overlay' }}>
+                <PostCartSection postId={id} full={false} />;
+            </div>
+        </>
+    );
 }
 
 export default DetailPost;

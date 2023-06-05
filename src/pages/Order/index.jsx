@@ -9,114 +9,11 @@ import { toast, ToastContainer } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import { accountSelector } from '../../redux/selectors';
 
-let tmpOrders = [
-    {
-        createdAt: '4/26/2023',
-        id: '1',
-        totalPrice: '99000',
-        customer: {
-            id: '1',
-            name: 'Nguyễn Văn X',
-            phone: '0365011XXX',
-        },
-    },
-    {
-        createdAt: '4/25/2023',
-        id: '2',
-        totalPrice: '99000',
-        customer: {
-            id: '1',
-            name: 'Nguyễn Văn X',
-            phone: '0365011XXX',
-        },
-    },
-    {
-        createdAt: '1/4/2023',
-        id: '3',
-        totalPrice: '99000',
-        customer: {
-            id: '1',
-            name: 'Nguyễn Văn X',
-            phone: '0365011XXX',
-        },
-    },
-    {
-        createdAt: '1/4/2023',
-        id: '4',
-        totalPrice: '99000',
-        customer: {
-            id: '1',
-            name: 'Nguyễn Văn X',
-            phone: '0365011XXX',
-        },
-    },
-    {
-        createdAt: '1/4/2023',
-        id: '5',
-        totalPrice: '99000',
-        customer: {
-            id: '1',
-            name: 'Nguyễn Văn X',
-            phone: '0365011XXX',
-        },
-    },
-    {
-        createdAt: '1/4/2023',
-        id: '6',
-        totalPrice: '99000',
-        customer: {
-            id: '1',
-            name: 'Nguyễn Văn X',
-            phone: '0365011XXX',
-        },
-    },
-    {
-        createdAt: '1/4/2023',
-        id: '7',
-        totalPrice: '99000',
-        customer: {
-            id: '1',
-            name: 'Nguyễn Văn X',
-            phone: '0365011XXX',
-        },
-    },
-    {
-        createdAt: '1/4/2023',
-        id: '8',
-        totalPrice: '99000',
-        customer: {
-            id: '1',
-            name: 'Nguyễn Văn X',
-            phone: '0365011XXX',
-        },
-    },
-    {
-        createdAt: '1/4/2023',
-        id: '9',
-        totalPrice: '99000',
-        customer: {
-            id: '1',
-            name: 'Nguyễn Văn X',
-            phone: '0365011XXX',
-        },
-    },
-    {
-        createdAt: '1/4/2023',
-        id: '10',
-        totalPrice: '99000',
-        customer: {
-            id: '1',
-            name: 'Nguyễn Văn X',
-            phone: '0365011XXX',
-        },
-    },
-];
-
 function Orders() {
     const [showDeleteDialog, setShowDeleteDialog] = useState(false);
     const [deletingOrderId, setDeletingOrderId] = useState(null);
     const [search, setSearch] = useState('');
-    const [orders, setOrders] = useState(tmpOrders);
+    const [orders, setOrders] = useState([]);
     const navigate = useNavigate();
     const showDeleteNoti = () => toast.success('Xóa hoá đơn thành công!');
     const showErorrNoti = () => toast.error('Có lỗi xảy ra!');
@@ -141,17 +38,17 @@ function Orders() {
 
     const account = useSelector(accountSelector);
     function isHiddenItem(functionName) {
-        // if (!account) {
-        //     return true;
-        // }
-        // if (!functionName) {
-        //     return false;
-        // }
-        // const findResult = account?.functions?.find((_func) => _func?.name === functionName);
-        // if (findResult) {
-        //     return false;
-        // }
-        // return true;
+        if (!account) {
+            return true;
+        }
+        if (!functionName) {
+            return false;
+        }
+        const findResult = account?.functions?.find((_func) => _func?.name === functionName);
+        if (findResult) {
+            return false;
+        }
+        return true;
         return false;
     }
     useEffect(() => {
@@ -196,7 +93,7 @@ function Orders() {
     }
 
     function linkToDetail(id) {
-        navigate('/order/detail/' + id);
+        navigate('/admin/order/detail/' + id);
     }
 
     return (
@@ -258,7 +155,7 @@ function Orders() {
                         </div>
 
                         <Link
-                            to="/order/add"
+                            to="/admin/order/add"
                             className={clsx('btn btn-md btn-green', {
                                 hidden: isHiddenItem('order/create'),
                             })}

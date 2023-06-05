@@ -44,33 +44,35 @@ function PostCartSection({ postInit, postId, full }) {
         return () => clearInterval(timerID);
     }, []);
 
-    // const [isOwner, isLiked, isSaved] = useMemo(() => {
-    //     let isOwner = false;
-    //     let isLiked = false;
-    //     let isSaved = false;
-    //     if (!user) {
-    //         return [isOwner, isLiked, isSaved];
-    //     }
-    //     if (post.creator?._id === user?._id) {
-    //         isOwner = true;
-    //     }
-    //     if (post.likes?.includes(user?._id)) {
-    //         isLiked = true;
-    //     }
-    //     if (user.savedPosts?.includes(post?._id)) {
-    //         isSaved = true;
-    //     }
+    const [isOwner, isLiked, isSaved] = useMemo(() => {
+        let isOwner = false;
+        let isLiked = false;
+        let isSaved = false;
+        if (!user) {
+            return [isOwner, isLiked, isSaved];
+        }
+        if (post.creator?._id === user?._id) {
+            isOwner = true;
+        }
+        if (post.likes?.includes(user?._id)) {
+            isLiked = true;
+        }
+        if (user.savedPosts?.includes(post?._id)) {
+            isSaved = true;
+        }
 
-    //     return [isOwner, isLiked, isSaved];
-    // }, [post?.likes, user?.savedPosts]);
-    // const [numberLike, setNumberLike] = useState(post.likes?.length || 0);
-    // // const [liked, setLiked] = useState(isLiked);
-    // var liked = isLiked;
-    // // const [saved, setSaved] = useState(isSaved);
-    // var saved = isSaved;
-    // console.log('re-render');
+        return [isOwner, isLiked, isSaved];
+    }, [post?.likes, user?.savedPosts]);
+    const [numberLike, setNumberLike] = useState(post.likes?.length || 0);
+    // const [liked, setLiked] = useState(isLiked);
+    var liked = isLiked;
+    // const [saved, setSaved] = useState(isSaved);
+    var saved = isSaved;
+    console.log('re-render');
 
     useEffect(() => {
+        if (postInit) console.log('post init ', postInit);
+        else console.log('postid', postId);
         if (postInit) {
             setPost(postInit);
         } else getPost();
@@ -85,7 +87,7 @@ function PostCartSection({ postInit, postId, full }) {
                 setPost(resJson.post);
             })
             .catch((error) => {
-                console.log(error);
+                console.log('lỗi ', error);
                 setPost([]);
             });
     }
@@ -105,42 +107,42 @@ function PostCartSection({ postInit, postId, full }) {
     }
 
     function handleLike() {
-        // fetch(' http://localhost:5000/api/posts/' + post?._id + '/like', {
-        //     method: 'PUT',
-        //     headers: {
-        //         Authorization: 'Bearer ' + user?.token,
-        //     },
-        // })
-        //     .then((res) => res.json())
-        //     .then((resJson) => {
-        //         showLikePost();
-        //         liked = !liked;
-        //     })
-        //     .catch((error) => {
-        //         console.log('deo Like');
-        //         console.log(error);
-        //     });
+        fetch(' http://localhost:5000/api/posts/' + post?._id + '/like', {
+            method: 'PUT',
+            headers: {
+                Authorization: 'Bearer ' + user?.token,
+            },
+        })
+            .then((res) => res.json())
+            .then((resJson) => {
+                showLikePost();
+                liked = !liked;
+            })
+            .catch((error) => {
+                console.log('deo Like');
+                console.log(error);
+            });
     }
     function handleUnLike() {
-        // fetch(' http://localhost:5000/api/posts/' + post?._id + '/unlike', {
-        //     method: 'PUT',
-        //     headers: {
-        //         Authorization: 'Bearer ' + user?.token,
-        //     },
-        // })
-        //     .then((res) => res.json())
-        //     .then((resJson) => {
-        //         showUnLikePost();
-        //         liked = !liked;
-        //     })
-        //     .catch((error) => {
-        //         console.log(error);
-        //     });
+        fetch(' http://localhost:5000/api/posts/' + post?._id + '/unlike', {
+            method: 'PUT',
+            headers: {
+                Authorization: 'Bearer ' + user?.token,
+            },
+        })
+            .then((res) => res.json())
+            .then((resJson) => {
+                showUnLikePost();
+                liked = !liked;
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     return (
         <div className=" mt-4 flex h-full  cursor-pointer flex-col justify-between rounded-lg border border-gray-300 p-3 px-3 py-2 text-left transition  hover:shadow-md ">
-            <div onClick={() => navigate('/comment/' + post?._id)}>
+            <div onClick={() => navigate('/admin/post/' + post?._id)}>
                 <div className="my-1 flex justify-between ">
                     <div className="flex" onClick={(e) => e.stopPropagation()}>
                         <UserWithAvatarAndName user={post?.creator} />
@@ -161,7 +163,7 @@ function PostCartSection({ postInit, postId, full }) {
                                 title=""
                                 className="mr-2 grid place-items-center items-center justify-center transition hover:text-slate-600"
                                 onClick={(e) => {
-                                    navigate('/edit-post/' + post._id);
+                                    navigate('/admin/edit-post/' + post._id);
                                     e.stopPropagation();
                                 }}
                             >
@@ -209,7 +211,7 @@ function PostCartSection({ postInit, postId, full }) {
                     <div onClick={(e) => e.stopPropagation()}>
                         {/* <Like isLiked={isLiked} numberOfLike={post.likes?.length || 0} onToggle={handleToggleLike} /> */}
                     </div>
-                    <Link to={'/comment/' + post?._id}>
+                    <Link to={'/post/' + post?._id}>
                         <div className="flex items-center">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"

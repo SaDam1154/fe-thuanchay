@@ -5,14 +5,14 @@ const groupMenus = [
         main: {
             iconClassname: 'fa-solid fa-house',
             text: 'Trang chủ',
-            link: '/',
+            link: '/admin/',
         },
     },
     {
         main: {
             iconClassname: 'fa-solid fa-clipboard',
             text: 'Hoá đơn',
-            link: '/order',
+            link: '/admin/order',
         },
         children: [
             {
@@ -36,7 +36,7 @@ const groupMenus = [
         main: {
             iconClassname: 'fa-solid fa-box-open',
             text: 'Sản phẩm',
-            link: '/product',
+            link: '/admin/product',
         },
         children: [
             {
@@ -56,7 +56,7 @@ const groupMenus = [
         main: {
             iconClassname: 'fa-solid fa-boxes-stacked',
             text: 'Loại sản phẩm',
-            link: '/product-type',
+            link: '/admin/product-type',
         },
         children: [
             {
@@ -75,7 +75,7 @@ const groupMenus = [
         main: {
             iconClassname: 'fa-solid fa-box-open',
             text: 'Bài viết',
-            link: '/posts',
+            link: '/admin/posts',
         },
         children: [
             {
@@ -94,7 +94,7 @@ const groupMenus = [
         main: {
             iconClassname: 'fa-solid fa-users',
             text: 'Khách hàng',
-            link: '/customer',
+            link: '/admin/customer',
         },
         children: [
             {
@@ -114,7 +114,7 @@ const groupMenus = [
         main: {
             iconClassname: ' fa-solid fa-user',
             text: 'Tài khoản',
-            link: '/account',
+            link: '/admin/account',
         },
         children: [
             {

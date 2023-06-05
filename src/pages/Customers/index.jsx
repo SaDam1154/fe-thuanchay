@@ -70,7 +70,7 @@ function Customers() {
     }
 
     function LinkToDetail(id) {
-        navigate('/customer/detail/' + id);
+        navigate('/admin/customer/detail/' + id);
     }
     return (
         <>
@@ -102,7 +102,7 @@ function Customers() {
                         </div>
 
                         <Link
-                            to="/customer/add"
+                            to="/admin/customer/add"
                             className={clsx('btn btn-md btn-green', {
                                 hidden: isHiddenItem('customer/create'),
                             })}

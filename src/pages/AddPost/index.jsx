@@ -42,9 +42,9 @@ function CreatePost() {
                     setLoading(false);
                     showSuccessNoti();
                     // setTimeout(() => {
-                    //     navigate('/product');
+                    //     navigate('/admin/product');
                     // }, 4000);
-                    // navigate('/product');
+                    // navigate('/admin/product');
                     formik.resetForm();
                 } else {
                     setLoading(false);
@@ -77,12 +77,12 @@ function CreatePost() {
     }, []);
 
     return (
-        <div>
+        <div className=" ">
             <form onSubmit={formik.handleSubmit}>
-                <div className="grid grid-cols-3 gap-7">
+                <div className="flex flex-col">
                     {/* LEFT */}
-                    <div className="col-span-2">
-                        <div className="mb-4">
+                    <div className="flex">
+                        <div className=" grow pr-16">
                             <label className="font-semibold">Tiêu đề</label>
                             <input
                                 name="title"
@@ -103,58 +103,58 @@ function CreatePost() {
                                 {formik.errors.title || 'No error message'}
                             </div>
                         </div>
-
-                        <div className="mb-4">
-                            <label className="font-semibold">Nội dung</label>
-                            <div
-                                className={clsx('text-editor mt-1 rounded-sm ', {
-                                    'ring-1 ring-red-500': formik.errors.content && formik.touched.content,
-                                })}
-                            >
-                                <PostContentEditor
-                                    setFormik={handleChangeContent}
-                                    initValue={formik.initialValues.content}
-                                    setTouch={setTouchContent}
+                        {/* RIGHT */}
+                        <div>
+                            <div className="">
+                                <label className="font-semibold">Chủ đề</label>
+                                <CategoryInput
+                                    name="categoryId"
+                                    className={clsx('text-input2 mt-1', {
+                                        invalid: formik.errors.categoryId && formik.touched.categoryId,
+                                    })}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                    value={formik.values.categoryId}
                                 />
-                            </div>
-                            <div
-                                className={clsx('invisible text-sm', {
-                                    '!visible text-red-500': formik.errors.content && formik.touched.content,
-                                })}
-                            >
-                                {formik.errors.content || 'No er'}
+                                <div
+                                    className={clsx('invisible text-sm', {
+                                        '!visible text-red-500': formik.errors.categoryId && formik.touched.categoryId,
+                                    })}
+                                >
+                                    {formik.errors.categoryId || 'No er'}
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* RIGHT */}
-                    <div>
-                        <div className="mb-4">
-                            <label className="font-semibold">Chủ đề</label>
-                            <CategoryInput
-                                name="categoryId"
-                                className={clsx('text-input2 mt-1', {
-                                    invalid: formik.errors.categoryId && formik.touched.categoryId,
-                                })}
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                value={formik.values.categoryId}
+                    <div className=" ">
+                        <label className="font-semibold">Nội dung</label>
+                        <div
+                            className={clsx('text-editor mt-1 h-96 overflow-scroll rounded-sm ', {
+                                'ring-1 ring-red-500': formik.errors.content && formik.touched.content,
+                            })}
+                        >
+                            <PostContentEditor
+                                setFormik={handleChangeContent}
+                                initValue={formik.initialValues.content}
+                                setTouch={setTouchContent}
                             />
-                            <div
-                                className={clsx('invisible text-sm', {
-                                    '!visible text-red-500': formik.errors.categoryId && formik.touched.categoryId,
-                                })}
-                            >
-                                {formik.errors.categoryId || 'No er'}
-                            </div>
+                        </div>
+                        <div
+                            className={clsx('invisible text-sm', {
+                                '!visible text-red-500': formik.errors.content && formik.touched.content,
+                            })}
+                        >
+                            {formik.errors.content || 'No er'}
                         </div>
                     </div>
                 </div>
-                <div className="flex items-center">
+                <div className="flex items-center border-t-2 pt-4">
+                    <div className="grow"></div>
                     <button
                         type="submit"
                         className={clsx(
-                            'flex h-9 min-w-[120px] items-center justify-center rounded-md bg-primary px-5 text-sm font-medium text-white transition hover:bg-primary-dark',
+                            'flex h-9 min-w-[120px] mr-28 items-center justify-center rounded-md bg-primary px-5 text-sm font-medium text-white transition hover:bg-primary-dark',
                             {
                                 'pointer-events-none opacity-50': !formik.dirty || loading,
                             }

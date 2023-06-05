@@ -78,7 +78,7 @@ function UpdateCustomer() {
                     setLoading(false);
                     showSuccessNoti();
                     setTimeout(() => {
-                        navigate('/customer');
+                        navigate('/admin/customer');
                     }, 2000);
                 } else {
                     setLoading(false);

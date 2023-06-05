@@ -91,7 +91,7 @@ function ProductsView() {
     }
 
     function linkToDetail(id) {
-        navigate('/product/detail/' + id);
+        navigate('/admin/product/detail/' + id);
     }
 
     return (
@@ -99,7 +99,7 @@ function ProductsView() {
             <div className="flex space-x-4">
                 {/* tite + reload btn */}
                 <div className="flex">
-                    <label className="text-2xl font-bold text-slate-800">Danh sách cây</label>
+                    <label className="text-2xl font-bold text-slate-800">Danh sách sản phẩm</label>
                     <button type="button" className="ml-3 text-gray-800 hover:underline" onClick={() => callApi()}>
                         <span className="font-sm pr-1">
                             <i className="fa fa-refresh" aria-hidden="true"></i>
@@ -141,7 +141,7 @@ function ProductsView() {
                                             as="div"
                                             className="text-input flex min-h-[36px] cursor-pointer items-center"
                                         >
-                                            <div className="mr-2 flex-1">{`Loại cây (${selectedProductTypes.length})`}</div>
+                                            <div className="mr-2 flex-1">{`Loại sản ph (${selectedProductTypes.length})`}</div>
                                             <i className="fa-solid fa-chevron-down"></i>
                                         </Listbox.Button>
                                         <Listbox.Options>
@@ -169,14 +169,14 @@ function ProductsView() {
                             </div>
                         </Popover.Panel>
                     </Popover>
-                    <Link to="/product/" className="btn btn-md btn-green">
+                    <Link to="/admin/product/" className="btn btn-md btn-green">
                         <span className="pr-1">
                             <i className="fa fa-share"></i>
                         </span>
                         <span>Chuyển sang dạng danh sách</span>
                     </Link>
                     <Link
-                        to="/product/add"
+                        to="/admin/product/add"
                         className={clsx('btn btn-md btn-green', {
                             hidden: isHiddenItem('product/create'),
                         })}
@@ -184,11 +184,11 @@ function ProductsView() {
                         <span className="pr-1">
                             <i className="fa-solid fa-circle-plus"></i>
                         </span>
-                        <span>Thêm cây mới</span>
+                        <span>Thêm sản phẩm mới</span>
                     </Link>
                 </div>
             </div>
-            <div className="flex h-[85vh] flex-col overflow-scroll">
+            <div className="flex mt-8 h-[85vh] flex-col overflow-scroll">
                 {' '}
                 <div className="grid grid-cols-4 gap-4">
                     {products
@@ -212,7 +212,10 @@ function ProductsView() {
 
                         .map((product) => (
                             <div key={product.id} className=" cursor-pointer select-none  rounded border ">
-                                <img className=" w-[300px] py-2 text-center" src={product.image} />
+                                <img
+                                    className=" w-[300px] h-[150px] py-2 text-center object-contain"
+                                    src={product.image}
+                                />
                                 <h1 className="py-2 text-center">{product.type?.name || '-'}</h1>
                                 <h1
                                     className={clsx('h-[64px] py-2 text-center', {

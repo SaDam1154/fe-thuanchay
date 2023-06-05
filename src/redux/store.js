@@ -27,11 +27,11 @@ const reHydrateStore = () => {
         };
     } else {
         return {
-                order: {
-                    customer: {
-                        name: '',
-                        phone: '',
-                        address: '',
+            order: {
+                customer: {
+                    name: '',
+                    phone: '',
+                    address: '',
                 },
                 details: [],
                 totalPrice: 0,

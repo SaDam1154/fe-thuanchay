@@ -87,7 +87,6 @@ function Products() {
                 setShowDeleteDialog(false);
                 if (resJson) {
                     showDeleteNoti();
-                    console.log('xóa');
                     getProducts();
                 } else {
                     showErorrNoti();
@@ -100,7 +99,7 @@ function Products() {
     }
 
     function linkToDetail(id) {
-        navigate('/product/detail/' + id);
+        navigate('/admin/product/detail/' + id);
     }
 
     return (
@@ -139,16 +138,16 @@ function Products() {
                         {/* FILTER */}
                         <Filter onChange={(f) => setFilters({ ...f })} hasFilters={Object.keys(filters).length > 0} />
 
-                        <Link to="/product/views" className="btn btn-md btn-green">
+                        <Link to="/admin/product/views" className="btn btn-md btn-green">
                             <span className="pr-1">
                                 <i className="fa fa-share"></i>
                             </span>
                             <span>Chuyển sang dạng lưới</span>
                         </Link>
                         <Link
-                            to="/product/add"
+                            to="/admin/product/add"
                             className={clsx('btn btn-md btn-green', {
-                                // hidden: isHiddenItem('product/create'),
+                                hidden: isHiddenItem('product/create'),
                             })}
                         >
                             <span className="pr-1">
@@ -246,9 +245,9 @@ function Products() {
                                     <td className="flex w-[200px] items-center justify-center px-2 py-2">
                                         <div className="flex justify-end">
                                             <Link
-                                                to={'/product/update/' + product.id}
+                                                to={'/admin/product/update/' + product.id}
                                                 className={clsx('btn btn-sm btn-blue', {
-                                                    // hidden: isHiddenItem('product/update'),
+                                                    hidden: isHiddenItem('product/update'),
                                                 })}
                                             >
                                                 <span className="pr-1">
@@ -258,7 +257,7 @@ function Products() {
                                             </Link>
                                             <button
                                                 className={clsx('btn btn-sm btn-red', {
-                                                    // hidden: isHiddenItem('product/delete'),
+                                                    hidden: isHiddenItem('product/delete'),
                                                 })}
                                                 onClick={() => {
                                                     {

@@ -110,7 +110,7 @@ function Accounts() {
     }
 
     function LinkToDetail(id) {
-        navigate('/account/detail/' + id);
+        navigate('/admin/account/detail/' + id);
     }
     return (
         <>
@@ -142,7 +142,7 @@ function Accounts() {
                         </div>
                     </div>
 
-                    <Link to="/account/add" className="btn btn-md bg-green-600 hover:bg-green-500">
+                    <Link to="/admin/account/add" className="btn btn-md bg-green-600 hover:bg-green-500">
                         <span className="pr-1">
                             <i className="fa fa-share"></i>
                         </span>
@@ -199,7 +199,10 @@ function Accounts() {
                                 </td>
                                 <td className="flex w-[200px] items-center justify-center px-2 py-2">
                                     <div className="flex justify-end">
-                                        <Link to={'/account/update/' + account.id} className="btn btn-sm btn-blue">
+                                        <Link
+                                            to={'/admin/account/update/' + account.id}
+                                            className="btn btn-sm btn-blue"
+                                        >
                                             <span className="pr-1">
                                                 <i className="fa-solid fa-pen-to-square"></i>
                                             </span>

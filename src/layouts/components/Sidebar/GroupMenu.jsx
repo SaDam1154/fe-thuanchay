@@ -10,8 +10,8 @@ function GroupMenu({ groupMenu }) {
     }
     const { pathname } = useLocation();
 
-    const pathFirst = pathname.split('/')[1];
-    const mainPath = groupMenu.main.link?.split('/')[1];
+    const pathFirst = pathname.split('/admin')[1];
+    const mainPath = groupMenu.main.link?.split('/admin')[1];
 
     return (
         <li>

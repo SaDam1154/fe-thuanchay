@@ -105,7 +105,7 @@ function Statistic() {
     }
 
     function linkToDetail(id) {
-        navigate('/order/detail/' + id);
+        navigate('/admin/order/detail/' + id);
     }
 
     return (
@@ -151,7 +151,7 @@ function Statistic() {
                         </div>
 
                         <Link
-                            to="/order/add"
+                            to="/admin/order/add"
                             className={clsx('btn btn-md btn-green', {
                                 hidden: isHiddenItem('order/create'),
                             })}

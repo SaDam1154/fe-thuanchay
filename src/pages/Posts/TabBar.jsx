@@ -21,7 +21,6 @@ function TabBar({
         if (!user) {
             showNonLogin();
         } else {
-            
             setSelectedTab(tab);
             if (tab !== selectedTab) {
                 onSelectedTabChange(tab);
@@ -29,33 +28,13 @@ function TabBar({
         }
     }
     function handleChangeOption(option) {
-        if (!user) {
-            showNonLogin();
-        } else {
-            setSelectedOption(option);
-            if (option !== selectedOption) {
-                onSelectedOptionChange(option);
-            }
+        setSelectedOption(option);
+        if (option !== selectedOption) {
+            onSelectedOptionChange(option);
         }
     }
     return (
         <div className="flex justify-between border-b">
-            <div className="flex border-b">
-                {tabs?.map((tab) => (
-                    <div
-                        key={tab.id}
-                        className={clsx(
-                            'cursor-pointer border-b-2 border-transparent p-3 font-medium text-gray-600 hover:text-primary',
-                            {
-                                '!border-primary text-primary': tab.id === selectedTab.id,
-                            }
-                        )}
-                        onClick={() => handleChangeTab(tab)}
-                    >
-                        {tab.name}
-                    </div>
-                ))}
-            </div>
             <div className="flex border-b">
                 {hide ? (
                     options?.map((option) => (

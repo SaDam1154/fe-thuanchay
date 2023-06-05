@@ -42,7 +42,7 @@ function AddProductType() {
                     setLoading(false);
                     showSuccessNoti();
                     bacsicForm.resetForm();
-                    navigate('/product/add');
+                    navigate('/admin/product/add');
                     showCD();
                 } else {
                     setLoading(false);
