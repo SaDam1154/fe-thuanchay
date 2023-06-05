@@ -12,19 +12,19 @@ import { useSelector } from 'react-redux';
 import { accountSelector } from '../../redux/selectors';
 
 function DetailProduct() {
-    // const account = useSelector(accountSelector);
+    const account = useSelector(accountSelector);
     function isHiddenItem(functionName) {
-        // if (!account) {
-        //     return true;
-        // }
-        // if (!functionName) {
-        //     return false;
-        // }
-        // const findResult = account?.functions?.find((_func) => _func?.name === functionName);
-        // if (findResult) {
-        //     return false;
-        // }
-        // return true;
+        if (!account) {
+            return true;
+        }
+        if (!functionName) {
+            return false;
+        }
+        const findResult = account?.functions?.find((_func) => _func?.name === functionName);
+        if (findResult) {
+            return false;
+        }
+        return true;
         return true;
     }
 
@@ -50,7 +50,7 @@ function DetailProduct() {
     }, []);
 
     function callApi() {
-        fetch('http://localhost:5000/api/product' + '/' + id)
+        fetch('http://localhost:5000/api/product/' + id)
             .then((res) => res.json())
             .then((resJson) => {
                 if (resJson.success) {
@@ -163,6 +163,5 @@ function DetailProduct() {
         </div>
     );
 }
-//
-//
+
 export default DetailProduct;
