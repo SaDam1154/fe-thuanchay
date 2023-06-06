@@ -1,13 +1,12 @@
 import Header from './components/Header';
-import HeaderAdmin from './components/HeaderAdmin';
+import HeaderAdmin from './components/AdminHeader';
 import Sidebar from './components/Sidebar';
-import Sidebar2 from './components2/Sidebar';
-import DefaultLayout2 from './RightSidebar';
+import Sidebar2 from './components/SidebarPost';
 import { useState } from 'react';
 function DefaultLayout({ heading, children }) {
     const [search, setSearch] = useState('');
 
-    return heading !== 'Danh sách bài viết' ? (
+    return heading !== 'Danh sách bài viết' && heading !== 'Chi tiết bài viết' ? (
         <div className="flex h-screen  overflow-hidden">
             <Sidebar></Sidebar>
             <div className="flex h-screen  flex-1 flex-col">

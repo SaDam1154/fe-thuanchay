@@ -1,11 +1,10 @@
 // Layouts
 import FullLayout from '../layouts/FullLayout';
 import OnlyHeaderLayout from '../layouts/OnlyHeaderLayout2';
-import RightSidebar from '../layouts/RightSidebar';
 import DefaultLayout from '../layouts/DefaultLayout';
 import CustomerLayout from '../layouts/CustomerLayout';
 
-// Pages
+// Pages ADMIN
 import Home from '../pages/Home';
 import Order from '../pages/Order';
 import Accounts from '../pages/Account';
@@ -38,12 +37,17 @@ import AddPost from '../pages/AddPost';
 import UpdatePost from '../pages/UpdatePost';
 import DetailPost from '../pages/DetailPost';
 
+//PAGE CUSTOMER
+import HomeCustomer from '../pages/AAACUSTOMER/HomeCustomer';
+import DetailProductCustomeer from '../pages/AAACUSTOMER/HomeCustomer';
+
 // Public routes
 const publicRoutes = [
     //CUsTOMER HOME
     {
         path: '/',
-        component: Home,
+        component: HomeCustomer,
+        layout: CustomerLayout,
         props: {
             heading: 'Trang chủ',
         },
@@ -170,7 +174,6 @@ const privateRoutes = [
     {
         path: '/admin/post/:id',
         component: DetailPost,
-        layout: RightSidebar,
         props: {
             heading: 'Chi tiết bài viết',
         },

@@ -1,17 +1,15 @@
 import { Fragment, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
-import TypeProduct from '../../../components/TypeProduct';
 import clsx from 'clsx';
 import { useEffect } from 'react';
 
 import moment from 'moment';
-import TimeNow from '../../../components/TimeNow';
 
 import { useSelector } from 'react-redux';
 import { accountSelector } from '../../../redux/selectors';
 
-function DetailProduct() {
+function HomeCustomer() {
     const account = useSelector(accountSelector);
     function isHiddenItem(functionName) {
         if (!account) {
@@ -162,6 +160,5 @@ function DetailProduct() {
         </div>
     );
 }
-//
-//
-export default DetailProduct;
+
+export default HomeCustomer;

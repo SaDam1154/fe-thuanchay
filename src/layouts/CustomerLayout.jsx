@@ -2,6 +2,7 @@ import CustomerHeader from './components/CustomerHeader';
 import CustomerFooter from './components/CustomerFooter';
 
 import { useState } from 'react';
+
 function CustomerLayout({ heading, children }) {
     return (
         <div className="flex flex-col h-screen">

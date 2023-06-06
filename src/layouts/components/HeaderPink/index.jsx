@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Popover } from '@headlessui/react';
 import { Link } from 'react-router-dom';
-import { userSelector } from '../../../redux/selectors';
 import { accountSlice } from '../../../redux/slices/accountSlide';
 import Search from './Search';
 
