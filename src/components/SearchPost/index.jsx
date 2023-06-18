@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { convert as convertHTMLtoText } from 'html-to-text';
-import UserWithAvatarAndName from '../../../components/UserWithAvatarAndName/UserWithAvatarAndName';
-import CategoryBadge from '../../../components/CategoryBadge/CategoryBadge';
+import UserWithAvatarAndName from '../UserWithAvatarAndName/UserWithAvatarAndName';
+import CategoryBadge from '../CategoryBadge/CategoryBadge';
 import { Link } from 'react-router-dom';
 
 function stringToSlug(str) {
@@ -54,22 +54,29 @@ function Search() {
     }, [posts, searchInput]);
 
     return (
-        <div className="group relative">
-            <div className="flex h-9 min-w-[360px] rounded-md border border-gray-400 focus-within:!border-primary hover:border-gray-500">
+        <div className="mx-2 flex grow group relative">
+            <input
+                className="text-input grow"
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                placeholder="Tìm kiếm bài viết..."
+            />
+            {/* <div className="flex h-9 min-w-[520px] rounded-md border border-gray-400 focus-within:!border-primary hover:border-gray-500">
                 <input
                     className="h-full flex-1 rounded-md px-3"
                     value={searchInput}
                     onChange={(e) => setSearchInput(e.target.value)}
-                    placeholder="Tìm kiếm ..."
+                    placeholder="Tìm kiếm bài viết..."
                 />
-            </div>
+            </div> */}
+
             {/* PANEL */}
             {searchInput && (
-                <button className="absolute right-0 left-0 hidden min-h-[200px]  cursor-auto flex-col space-y-2 rounded-lg border bg-white p-3 shadow-md group-focus-within:flex">
+                <button className="absolute right-0 left-0  top-10 hidden min-h-[200px] cursor-auto flex-col space-y-2 rounded-lg border bg-white p-3 shadow-md group-focus-within:flex">
                     {searchPosts.length > 0 ? (
                         searchPosts.map((post) => (
                             <Link
-                                to={'/admin/post/' + post._id}
+                                to={'/comment/' + post._id}
                                 key={post._id}
                                 className="w-full cursor-pointer rounded-md border border-gray-300 px-3 py-2 text-left hover:shadow"
                             >

@@ -69,7 +69,7 @@ function Sidebar() {
                         .slice(0, 3)
                         ?.map((post) => (
                             <Link
-                                to={'/comment/' + post._id}
+                                to={'/admin/post/' + post._id}
                                 key={post._id}
                                 className="block cursor-pointer rounded-md border border-gray-300 px-3 py-2 hover:shadow"
                             >

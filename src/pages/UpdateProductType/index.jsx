@@ -62,7 +62,7 @@ function UpdateProductType() {
                     showSuccessNoti();
                     setTimeout(() => {
                         navigate('/admin/product-type');
-                    }, 3000);
+                    }, 2000);
                 } else {
                     setLoading(false);
                     showErorrNoti();

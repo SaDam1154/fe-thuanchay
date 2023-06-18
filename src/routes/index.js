@@ -39,17 +39,47 @@ import DetailPost from '../pages/DetailPost';
 
 //PAGE CUSTOMER
 import HomeCustomer from '../pages/AAACUSTOMER/HomeCustomer';
+import ShopCustomer from '../pages/AAACUSTOMER/ShopCustomer';
+import ProductTypeCustomer from '../pages/AAACUSTOMER/ProductTypeCustomer';
+import ContactCustomer from '../pages/AAACUSTOMER/ContactCustomer';
 import DetailProductCustomeer from '../pages/AAACUSTOMER/HomeCustomer';
 
 // Public routes
 const publicRoutes = [
-    //CUsTOMER HOME
+    //CUSTOMER HOME
     {
         path: '/',
         component: HomeCustomer,
         layout: CustomerLayout,
         props: {
             heading: 'Trang chủ',
+        },
+    },
+    //CUSTOMER SHOP
+    {
+        path: '/shop',
+        component: ShopCustomer,
+        layout: CustomerLayout,
+        props: {
+            heading: 'Shop',
+        },
+    },
+    //CUSTOMER SHOP
+    {
+        path: '/product-type',
+        component: ProductTypeCustomer,
+        layout: CustomerLayout,
+        props: {
+            heading: 'Danh mục',
+        },
+    },
+    //CUSTOMER contact
+    {
+        path: '/contact',
+        component: ContactCustomer,
+        layout: CustomerLayout,
+        props: {
+            heading: 'Liên hệ',
         },
     },
 ];

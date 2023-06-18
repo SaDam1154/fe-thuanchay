@@ -3,6 +3,9 @@ import { Fragment, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 
+import { useSelector } from 'react-redux';
+import { accountSelector } from '../../redux/selectors';
+
 function removeVietnameseTones(stra) {
     var str = stra;
     str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, 'a');
@@ -43,6 +46,20 @@ function Accounts() {
 
     const showDeleteNoti = () => toast.success('Xóa tài khoản thành công!');
     const showErorrNoti = () => toast.error('Có lỗi xảy ra!');
+    const account = useSelector(accountSelector);
+    function isHiddenItem(functionName) {
+        if (!account) {
+            return true;
+        }
+        if (!functionName) {
+            return false;
+        }
+        const findResult = account?.functions?.find((_func) => _func?.name === functionName);
+        if (findResult) {
+            return false;
+        }
+        return true;
+    }
 
     useEffect(() => {
         getAccounts();
@@ -201,7 +218,9 @@ function Accounts() {
                                     <div className="flex justify-end">
                                         <Link
                                             to={'/admin/account/update/' + account.id}
-                                            className="btn btn-sm btn-blue"
+                                            className={clsx('btn btn-sm btn-blue', {
+                                                hidden: isHiddenItem('account/update'),
+                                            })}
                                         >
                                             <span className="pr-1">
                                                 <i className="fa-solid fa-pen-to-square"></i>
@@ -209,7 +228,9 @@ function Accounts() {
                                             <span>Sửa</span>
                                         </Link>
                                         <button
-                                            className="btn btn-sm btn-red"
+                                            className={clsx('btn btn-sm btn-red ', {
+                                                hidden: isHiddenItem('account/delete'),
+                                            })}
                                             onClick={() => {
                                                 {
                                                     setShowDeleteDialog(true);

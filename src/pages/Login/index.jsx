@@ -44,7 +44,7 @@ function Login() {
                     setLoading(false);
                     showSuccessNoti();
                     dispatch(accountActions.login(resJson.account));
-                    navigate('/admin/');
+                    navigate('/');
                 } else {
                     setLoading(false);
                     showErorrNoti();

@@ -86,7 +86,7 @@ function UpdateAccount() {
                     showSuccessNoti();
                     setTimeout(() => {
                         navigate('/admin/account');
-                    }, 1000);
+                    }, 2000);
                 } else {
                     setLoading(false);
                     showErorrNoti();

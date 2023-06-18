@@ -82,9 +82,8 @@ function UpdateProduct() {
                     setLoading(false);
                     showSuccessNoti();
                     setTimeout(() => {
-                        navigate('/product');
-                    }, 4000);
-                    //navigate('/product')
+                        navigate('/admin/product');
+                    }, 1000);
                 } else {
                     setLoading(false);
                     showErorrNoti();
@@ -242,7 +241,7 @@ function UpdateProduct() {
                                 <span className="text-lx pl-3 font-medium">Đang chỉnh sửa sản phẩm</span>
                             </div>
                             <div className="flex">
-                                <Link to={'/product'} className="btn btn-red btn-md">
+                                <Link to={'/admin/product'} className="btn btn-red btn-md">
                                     <span className="pr-2">
                                         <i className="fa-solid fa-circle-xmark"></i>
                                     </span>

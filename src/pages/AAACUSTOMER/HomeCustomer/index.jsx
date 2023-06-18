@@ -1,15 +1,27 @@
-import { Fragment, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import Footer from '../../../components/CustomerFooter';
+import Search from './Search';
+import Filter from './Filter';
+import { useEffect, useState, useRef } from 'react';
 
+import { Link, useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import PriceFormat from '../../../components/PriceFormat';
 import clsx from 'clsx';
-import { useEffect } from 'react';
-
-import moment from 'moment';
 
 import { useSelector } from 'react-redux';
 import { accountSelector } from '../../../redux/selectors';
+const bag2 =
+    'https://cdn.vn.alongwalk.info/wp-content/uploads/2023/01/05212422/image-30-hinh-nen-meo-cute-dung-cho-ca-dien-thoai-va-may-tinh-bfa19be160372b49145eb85b3f12be80.jpg';
 
 function HomeCustomer() {
+    const refContact = useRef(null);
+
+    const [search, setSearch] = useState('');
+    const [products, setProducts] = useState([]);
+    const [productTypes, setProductTypes] = useState([]);
+    const navigate = useNavigate();
+    const [img, setImg] = useState();
     const account = useSelector(accountSelector);
     function isHiddenItem(functionName) {
         if (!account) {
@@ -24,9 +36,6 @@ function HomeCustomer() {
         }
         return true;
     }
-
-    const [img, setImg] = useState();
-
     useEffect(() => {
         //cleanup
         return () => {
@@ -34,129 +43,286 @@ function HomeCustomer() {
         };
     }, [img]);
 
-    const [product, setProduct] = useState({});
-    useEffect(() => {
-        //cleanup
-        return () => {
-            img && URL.revokeObjectURL(img.preview);
-        };
-    }, [img]);
-    const { id } = useParams();
+    const [selectedProductTypes, setSelectedProductTypes] = useState([]);
     useEffect(() => {
         callApi();
+        callApiProductTypes();
     }, []);
 
     function callApi() {
-        fetch('http://localhost:5000/api/product/' + id)
+        fetch('http://localhost:5000/api/product')
             .then((res) => res.json())
             .then((resJson) => {
                 if (resJson.success) {
-                    setProduct(resJson.product);
+                    setProducts(resJson.products);
                 } else {
-                    setProduct({});
+                    setProducts([]);
+                }
+            });
+    }
+    function callApiProductTypes() {
+        fetch('http://localhost:5000/api/product-type')
+            .then((res) => res.json())
+            .then((resJson) => {
+                if (resJson.success) {
+                    setProductTypes(resJson.productTypes);
+                } else {
+                    setProductTypes([]);
                 }
             });
     }
 
+    function linkToDetail(id) {
+        navigate('/admin/product/detail/' + id);
+    }
+
     return (
-        <div className="container">
-            <div className="w-full">
-                <div className=" mt-4 flex flex-row">
-                    <div className="mr-8 mt-3 flex w-1/2 flex-col space-y-4 text-lg">
-                        <div className="form-group mt-10 flex flex-col">
-                            <label className="mb-1 cursor-default font-semibold " htmlFor="name">
-                                Mã sản phẩm
-                            </label>
-                            <div id="name" className="text-input disabled select-none py-[5px]">
-                                {product.id}
-                            </div>
+        <div className="flex flex-col justify-between h-[689px] overflow-y-scroll">
+            <div className="flex flex-col  justify-around   px-[200px]">
+                <div id="gr1" className="flex flex-col justify-around h-[350px]">
+                    <div id="gr1-title" className="flex flex-col justify-around h-[200px] ">
+                        <div className="font-semibold text-4xl w-full text-green-600">Thực phẩm thuần chay</div>
+                        <div
+                            onClick={() => {
+                                refContact.current?.scrollIntoView({ behavior: 'smooth' });
+                            }}
+                            className="font-semibold hover:cursor-pointer text-4xl w-full"
+                        >
+                            Ngon, bổ, rẻ.
                         </div>
-                        <div className="form-group flex flex-col ">
-                            <label className="mb-1 cursor-default font-semibold " htmlFor="name">
-                                Tên cây
-                            </label>
-                            <div id="name" className="text-input disabled select-none py-[5px]">
-                                {product.name}
-                            </div>
+                        <div className="flex">
+                            <div className="btn btn-green btn-md hover:cursor-pointer">Đi ngay</div>
+
+                            <div className="btn btn-green btn-md hover:cursor-pointer">Tìm hiểu thêm</div>
                         </div>
                     </div>
-
-                    <div className="form-group w-1/2 flex-col items-center justify-items-center ">
-                        <div className="h-60 w-full select-none overflow-hidden rounded border border-slate-300 bg-slate-50">
-                            <img src={product.image} alt="" className="h-full w-full object-contain" />
+                    <div id="gr1-search" className="flex h-[100px] items-center justify-center">
+                        <div className="flex w-11/12">
+                            <Search></Search>
+                            <Filter></Filter>
                         </div>
                     </div>
                 </div>
-
-                <div className="mt-4 flex flex-row">
-                    <div className="form-group mr-4 mt-3 flex basis-1/2 flex-col">
-                        <label className="mb-1 cursor-default text-lg font-semibold" htmlFor="type">
-                            Loại cây
-                        </label>
-                        <div id="name" className="text-input disabled  select-none py-[5px]">
-                            {product?.type?.name}
+                <div id="gr2" className="flex flex-col">
+                    <div id="gr2-title" className="flex justify-between">
+                        <div id="gr1-title-name flex flex-col">
+                            <div className="text-2xl font-semibold">Sản phẩm</div>
+                            <div className="text-4xl font-semibold text-green-600">Mới nhất</div>
                         </div>
+                        <Link
+                            to={'/shop'}
+                            id="gr1-title-button"
+                            className="btn btn-md btn-green h-[50px] hover:cursor-pointer"
+                        >
+                            Đến shop ngay
+                        </Link>
                     </div>
+                    <div id="gr2-item" className="">
+                        <div className="flex mt-8 h-[690px] flex-col overflow-hidden">
+                            <div className="grid grid-cols-4 gap-4 ">
+                                {products
+                                    .filter((product) => {
+                                        if (search === '') {
+                                            return product;
+                                        } else {
+                                            if (
+                                                removeVietnameseTones(product.name.toLowerCase()).includes(
+                                                    removeVietnameseTones(search.toLowerCase())
+                                                ) ||
+                                                removeVietnameseTones(product?.type.name.toLowerCase()).includes(
+                                                    removeVietnameseTones(search.toLowerCase())
+                                                )
+                                            ) {
+                                                var id = product.id.toString();
+                                                return product.id.toString().includes(id);
+                                            }
+                                        }
+                                    })
 
-                    <div className="form-group ml-4 mt-3 flex basis-1/2 flex-col">
-                        <label className="mb-1 cursor-default text-lg font-semibold" htmlFor="quantity">
-                            Số lượng
-                        </label>
-                        <div id="quantity" className="ml-lg text-input disabled py-[5px]">
-                            {product.quantity}
+                                    .map((product) => (
+                                        <div
+                                            key={product.id}
+                                            className=" cursor-pointer select-none rounded border mb-4  "
+                                        >
+                                            <div className="rounded-3xl overflow-hidden">
+                                                <img
+                                                    className=" w-[296px] h-[222px] bg-gray-300 rounded text-center object-contain"
+                                                    src={product.image}
+                                                />
+                                            </div>
+                                            <div
+                                                className={clsx('text-sm font-medium mx-4 my-1', {
+                                                    'line-through': product.quantity === 0,
+                                                })}
+                                            >
+                                                {product.name}
+                                            </div>
+                                            <div className="text-base mx-2  font-light">
+                                                {product.price.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
+                                            </div>
+                                            <div className="flex justify-center">
+                                                <button
+                                                    className={clsx('btn btn-sm btn-blue', {
+                                                        hidden: `hover:`,
+                                                    })}
+                                                >
+                                                    <span className="pr-1">
+                                                        <i className="fa-solid fa-pen-to-square"></i>
+                                                    </span>
+                                                    <span>Sửa</span>
+                                                </button>
+                                                <button
+                                                    className={clsx('btn btn-sm btn-green my-1 w-10/12', {
+                                                        hidden: isHiddenItem('product/delete'),
+                                                    })}
+                                                >
+                                                    <span className="pr-1 ">
+                                                        <i className="fa-solid fa-cart-shopping"></i>
+                                                    </span>
+                                                    <span>Thêm vào giỏ hàng</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    ))}
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div className="mt-2 flex flex-row">
-                    <div className="form-group mr-4 mt-3 flex basis-1/2 flex-col">
-                        <label className="mb-1 cursor-default text-lg font-semibold" htmlFor="date">
-                            Ngày nhập cây
-                        </label>
-                        <div className="text-input disabled py-[5px] text-xl">
-                            {moment(product.createdAt).format('HH:mm:ss DD/MM/YYYY ')}
+                <div id="product-type" className="flex flex-col select-none">
+                    <div id="gr3-title" className="flex justify-between">
+                        <div id="gr1-title-name flex flex-col">
+                            <div className="text-2xl font-semibold">Phân loại</div>
+                            <div className="text-4xl font-semibold text-green-600">Danh mục</div>
                         </div>
                     </div>
-
-                    <div className="ml-4 mt-3 flex basis-1/2 flex-col">
-                        <label className="mb-1 cursor-default text-lg font-semibold" htmlFor="price">
-                            Giá
-                        </label>
-                        <div className="relative">
-                            <div id="price" className="text-input disabled w-full select-none py-[5px]">
-                                {product.price}
+                    <div id="gr3-item" className="">
+                        <div className="flex mt-8 h-[290px] flex-col overflow-hidden">
+                            <div className="grid grid-cols-4 gap-4 ">
+                                {productTypes.map((product) => (
+                                    <div key={product.id} className=" cursor-pointer select-none rounded  mb-4  ">
+                                        <div className="rounded-3xl overflow-hidden items-center justify-center">
+                                            <div className="w-[269px] h-[100px] flex items-center justify-center   rounded text-center bg-gradient-to-r from-purple-200 to-pink-200 hover:from-purple-300 hover:to-pink-300">
+                                                <div>{product?.name}</div>
+                                                {/* <img
+                                                    src="
+                                                    https://cdn.vn.alongwalk.info/wp-content/uploads/2023/01/05212422/image-30-hinh-nen-meo-cute-dung-cho-ca-dien-thoai-va-may-tinh-bfa19be160372b49145eb85b3f12be80.jpg"
+                                                    alt=""
+                                                ></img> */}
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
-                            <label
-                                htmlFor="price"
-                                className="lb-value absolute top-0 right-0 select-none px-[6%] py-1 text-lg text-gray-600"
+                        </div>
+                    </div>
+                </div>
+                <div id="gr4" className="flex flex-col">
+                    <div id="gr4-title" className="flex justify-between">
+                        <div id="gr1-title-name flex flex-col">
+                            <div className="text-2xl font-semibold">Các bước</div>
+                            <div className="text-4xl font-semibold text-green-500">Mua Hàng</div>
+                        </div>
+                    </div>
+                    <div id="gr4-item" className="flex items-center h-[300px] ">
+                        <div className="flex flex-col h-[250px] w-[370px] justify-around px-4 py-10  border-x-2  ">
+                            <div className="text-5xl font-semibold text-green-500">01.</div>
+                            <div className="text-2xl font-semibold">Chọn sản phẩm</div>
+                            <div className="text-base font-normal">
+                                Lựa chọn những sản phẩm mà bạn muốn mua trong trang web
+                            </div>
+                        </div>
+                        <div className="flex flex-col h-[224px] w-[370px] justify-around px-4  ">
+                            <div className="text-5xl font-semibold text-green-500">02.</div>
+                            <div className="text-2xl font-semibold">Nhập thông tin nhận hàng</div>
+                            <div className="text-base font-normal">
+                                Nhập đầy đủ thông tin nhận hàng để shop tiện liên lạc và giao hàng chính xác
+                            </div>
+                        </div>
+                        <div className="flex flex-col h-[224px] w-[370px] justify-around px-4  border-x-2 ">
+                            <div className="text-5xl font-semibold text-green-500">03.</div>
+                            <div className="text-2xl font-semibold">Xác nhận và nhận hàng</div>
+                            <div className="text-base font-normal">Nhận cuộc gọi xác nhận đơn hàng và nhận hàng</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="contact" className="flex flex-col select-none">
+                    <div id="gr5-title" className="flex justify-between">
+                        <div id="gr1-title-name flex flex-col">
+                            <div className="text-2xl font-semibold">Thông tin</div>
+                            <div className="text-4xl font-semibold text-green-500">Liên hệ</div>
+                        </div>
+                    </div>
+                    <div id="gr5-item" className="flex items-center h-[300px] ">
+                        <div className="flex  h-[224px] w-[370px] items-center px-4 border-x-2 ">
+                            <button
+                                className={clsx('btn btn-sm btn-green h-[75px] min-w-[75px] rounded-full m-2 ', {
+                                    hidden: isHiddenItem('order/delete'),
+                                })}
+                                onClick={(e) => {
+                                    {
+                                        e.stopPropagation();
+                                        setShowDeleteDialog(true);
+                                        setDeletingOrderId(order.id);
+                                    }
+                                }}
                             >
-                                VNĐ
-                            </label>
+                                <span className="">
+                                    <i className="fa-solid fa-phone fa-2xl"></i>
+                                </span>
+                            </button>
+                            <div className="flex flex-col">
+                                <div className="text-2xl font-semibold">Số điện thoại</div>
+                                <div className="text-base font-normal">0365011369</div>
+                            </div>
+                        </div>
+                        <div className="flex h-[224px] w-[370px] items-center px-4 ">
+                            <button
+                                className={clsx('btn btn-sm btn-green h-[75px] min-w-[75px] rounded-full m-2 ', {
+                                    hidden: isHiddenItem('order/delete'),
+                                })}
+                                onClick={(e) => {
+                                    {
+                                        e.stopPropagation();
+                                        setShowDeleteDialog(true);
+                                        setDeletingOrderId(order.id);
+                                    }
+                                }}
+                            >
+                                <div className="flex items-center justify-center h-[29px] max-w-[24px] rounded-full bg-white">
+                                    <i className="fa-brands fa-facebook fa-2xl text-blue-500 "></i>
+                                </div>
+                            </button>
+                            <div className="flex flex-col">
+                                <div className="text-2xl font-semibold">Facebook</div>
+                                <div className="text-base font-normal">Sa Đam BN</div>
+                            </div>
+                        </div>
+                        <div className="flex  h-[224px] w-[370px] items-center px-4 border-x-2 ">
+                            <button
+                                className={clsx('btn btn-sm btn-green h-[75px] min-w-[75px] rounded-full m-2 ', {
+                                    hidden: isHiddenItem('order/delete'),
+                                })}
+                                onClick={(e) => {
+                                    {
+                                        e.stopPropagation();
+                                        setShowDeleteDialog(true);
+                                        setDeletingOrderId(order.id);
+                                    }
+                                }}
+                            >
+                                <span className="">
+                                    <i className="fa-solid fa-z fa-2xl"></i>
+                                </span>
+                            </button>
+                            <div className="flex flex-col">
+                                <div className="text-2xl font-semibold">Zalo</div>
+                                <div className="text-base font-normal">Sa Đam BN</div>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div className=" mt-8 flex justify-end">
-                    <Link to={'/product'} className="btn btn-blue btn-md w-ful">
-                        <span className="pr-2">
-                            <i className="fa-solid fa-circle-xmark"></i>
-                        </span>
-                        <span>Quay lại</span>
-                    </Link>
-
-                    <Link
-                        to={'/product/update/' + product.id}
-                        className={clsx('btn btn-md btn-green', {
-                            hidden: isHiddenItem('product/update'),
-                        })}
-                    >
-                        <span className="pr-2">
-                            <i className="fa fa-share" aria-hidden="true"></i>
-                        </span>
-                        <span>Chỉnh sửa</span>
-                    </Link>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 }

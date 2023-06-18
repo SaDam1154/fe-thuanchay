@@ -14,19 +14,19 @@ function Customers() {
 
     const showDeleteNoti = () => toast.success('Xóa khách hàng thành công!');
     const showErorrNoti = () => toast.error('Có lỗi xảy ra!');
-    // const account = useSelector(accountSelector);
+    const account = useSelector(accountSelector);
     function isHiddenItem(functionName) {
-        // if (!account) {
-        //     return true;
-        // }
-        // if (!functionName) {
-        //     return false;
-        // }
-        // const findResult = account?.functions?.find((_func) => _func?.name === functionName);
-        // if (findResult) {
-        //     return false;
-        // }
-        // return true;
+        if (!account) {
+            return true;
+        }
+        if (!functionName) {
+            return false;
+        }
+        const findResult = account?.functions?.find((_func) => _func?.name === functionName);
+        if (findResult) {
+            return false;
+        }
+        return true;
     }
     useEffect(() => {
         getCustomers();
