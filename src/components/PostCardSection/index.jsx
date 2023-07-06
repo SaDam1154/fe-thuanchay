@@ -163,7 +163,7 @@ function PostCartSection({ postInit, postId, full }) {
                                 title=""
                                 className="mr-2 grid place-items-center items-center justify-center transition hover:text-slate-600"
                                 onClick={(e) => {
-                                    navigate('/admin/edit-post/' + post._id);
+                                    navigate('/admin/posts/update/' + post._id);
                                     e.stopPropagation();
                                 }}
                             >

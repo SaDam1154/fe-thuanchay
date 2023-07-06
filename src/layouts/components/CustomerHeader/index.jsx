@@ -1,15 +1,20 @@
 import { Popover } from '@headlessui/react';
+import PriceFormat from '../../../components/PriceFormat';
+
 import clsx from 'clsx';
 import { useDispatch, useSelector } from 'react-redux';
-import { accountSelector } from '../../../redux/selectors';
+import { accountSelector, orderSelector } from '../../../redux/selectors';
 import { accountActions } from '../../../redux/slices/accountSlide';
+import { orderActions } from '../../../redux/slices/orderSlice';
+
 import { Fragment, useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Search from './Search';
 
 const LINK = [
     { Link: '/', Content: 'Trang chủ' },
-    { Link: '/shop', Content: 'Shop' },
+    { Link: '/shop', Content: 'Sản phẩm' },
+    { Link: '/post', Content: 'Bài viết' },
 ];
 const TABS = [
     { Link: '/#product-type  ', Content: 'Danh mục' },
@@ -17,17 +22,122 @@ const TABS = [
 ];
 
 function HeaderCustomer({ children }) {
+    const order = useSelector(orderSelector);
     const dispatch = useDispatch();
     const account = useSelector(accountSelector);
     const navigate = useNavigate();
 
+    const [products, setProducts] = useState([]);
+    const [selectedProducts, setSelectedProducts] = useState([]);
+
+    const [renderProduct, setRenderProduct] = useState([]);
+    const [number, setNumber] = useState([]);
+    function isHiddenItem(functionName) {
+        if (!account) {
+            return true;
+        }
+        if (!functionName) {
+            return false;
+        }
+        const findResult = account?.functions?.find((_func) => _func?.name === functionName);
+        if (findResult) {
+            return false;
+        }
+        return true;
+    }
+    useEffect(() => {
+        fetch('http://localhost:5000/api/product')
+            .then((res) => res.json())
+            .then((resJson) => {
+                if (resJson.success) {
+                    setProducts(resJson.products);
+                    setRenderProduct(resJson.products);
+                } else {
+                    setProducts([]);
+                    setRenderProduct([]);
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+                setProducts([]);
+                setRenderProduct([]);
+            });
+    }, []);
+    function handleSelectedTabChange(tab) {
+        console.log('Tab change: ', tab);
+        setPosts([]);
+        var string = '';
+        if (tab.id == 1) {
+            string = 'posts';
+            // selectedOption(OPTIONS[0]);
+            setHide(true);
+        } else {
+            if (tab.id == 2) {
+                string = 'posts/following/posts';
+                setHide(false);
+            } else {
+                string = 'posts/saved/posts';
+                setHide(false);
+            }
+        }
+        fetch('http://localhost:8080/api/' + string, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + user?.token,
+            },
+        })
+            .then((res) => res.json())
+            .then((resJson) => {
+                setPosts(resJson.posts);
+                console.log(resJson.posts);
+            })
+            .catch((error) => {
+                console.log(error);
+                setPosts([]);
+            });
+    }
+    useEffect(() => {
+        setSelectedProducts(
+            order.details.map((detail) => {
+                const matchedProduct = products.find((product) => product._id === detail.product);
+                if (!matchedProduct) {
+                    return {
+                        id: '',
+                        image: '',
+                        name: '',
+                        price: 0,
+                        quantity: 0,
+                        discount: 0,
+                    };
+                }
+                return {
+                    _id: matchedProduct._id,
+                    id: matchedProduct.id,
+                    image: matchedProduct.image,
+                    name: matchedProduct.name,
+                    price: detail.price,
+                    discount: detail.discount,
+                    quantity: matchedProduct.quantity,
+                    orderQuantity: detail.quantity,
+                };
+            })
+        );
+    }, [order, products]);
+
     const { pathname } = useLocation();
     console.log(pathname);
+    function handleDeleteProduct(_id) {
+        dispatch(orderActions.remove(_id));
+    }
+    function handleUpdateQuantityProduct(product, quantity) {
+        dispatch(orderActions.updateQuantity({ product, quantity }));
+    }
 
     return (
         <header className="flex border-2 border-green-400 min-h-[56px] h-14 w-full select-none items-center justify-between  font-medium text-slate-900">
             <div className="flex ml-40 items-center justify-center">
-                <Link to="/admin/" className="ml-10">
+                <Link to="/" className="ml-10">
                     <img
                         className="h-11 w-11 object-contain"
                         src="https://png.pngtree.com/png-vector/20220518/ourlarge/pngtree-vegan-icon-png-image_4697174.png"
@@ -70,8 +180,103 @@ function HeaderCustomer({ children }) {
                 ))}
 
                 <Search></Search>
+                {/* <Link
+                    to="/admin/product/add"
+                    className={clsx('btn btn-md btn-green', {
+                        hidden: isHiddenItem('product/delete'),
+                    })}
+                >
+                    <span className="pr-1">
+                        <i className="fa fa-share"></i>
+                    </span>
+                    <span>Thêm sản phẩm mới</span>
+                </Link> */}
+                <Popover
+                    className={clsx('relative', {
+                        hidden: isHiddenItem('product/read'),
+                    })}
+                >
+                    {({ open }) => (
+                        <>
+                            <Popover.Button className="w-[66px] h-[34px] flex justify-start items-center rounded-[3px] btn bg-green-300 ">
+                                <button className="h-full w-[34px] bg-green-500 rounded-[3px]">
+                                    <span className="pr-1">
+                                        <i className="fa fa-cart-shopping"></i>
+                                    </span>
+                                </button>
+                                <div className=" flex grow items-center justify-center font-semibold text-white">
+                                    {selectedProducts.length}
+                                </div>
+                            </Popover.Button>
+                            <Popover.Panel className="absolute flex w-[450px] flex-col top-12 right-0 z-10 p-4 items-start gap-4 rounded-xl  bg-white shadow-md">
+                                {selectedProducts?.length === 0 ? (
+                                    <div className="mt-3 text-lg font-semibold">
+                                        <div className="flex w-full justify-center">Chưa có sản phẩm trong hoá đơn</div>
+                                    </div>
+                                ) : (
+                                    <>
+                                        <div className="border-b border-solid">
+                                            {selectedProducts.map((product) => (
+                                                <div className="flex items-center gap-4 justify-stretch hover:cursor-pointer">
+                                                    <div>
+                                                        <span className="pr-1">
+                                                            <i className="fa fa-x font-light"></i>
+                                                        </span>
+                                                    </div>
+                                                    <img
+                                                        src={product?.image || '/placeholder.png'}
+                                                        className="h-10 w-10 rounded-full object-cover object-center"
+                                                    />
+                                                    <div className="flex grow w-[300px] flex-col">
+                                                        <div id="name" className="text-green-400">
+                                                            {product.name}
+                                                        </div>
+                                                        <div id="price">
+                                                            <PriceFormat>{product.price}</PriceFormat>
+                                                        </div>
+                                                    </div>
+                                                    <div className="w-[58px] h-[32px]">
+                                                        <input
+                                                            type="number"
+                                                            min="1"
+                                                            value={product?.orderQuantity || ''}
+                                                            onChange={(e) =>
+                                                                handleUpdateQuantityProduct(product, e.target.value)
+                                                            }
+                                                            className={clsx(
+                                                                'text-input w-16 py-1 text-right text-base'
+                                                            )}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                        <div className="flex items-center justify-between w-full">
+                                            <p className="font-semibold">
+                                                <span>Tổng tiền: </span>
+                                                <span className="text-xl text-blue-600">
+                                                    <span>
+                                                        <PriceFormat>{order.totalPrice}</PriceFormat>
+                                                    </span>
+                                                    <span> VNĐ</span>
+                                                </span>
+                                            </p>
+                                            <Link to="/cart" className="btn h-[36px] w-[150px] btn-green">
+                                                <span className="pr-1">
+                                                    <i className="fa fa-share"></i>
+                                                </span>
+                                                <span>Xem giỏ hàng</span>
+                                            </Link>
+                                        </div>
+                                    </>
+                                )}
+                            </Popover.Panel>
+                        </>
+                    )}
+                </Popover>
+
                 {account ? (
-                    <div className="flex items-center justify-end w-[248px]">
+                    <div className="flex items-center justify-end w-[170px]">
                         <div className="flex items-center space-x-1">
                             <Link to={'/'} className="h-9 w-9 overflow-hidden rounded-full ring-primary hover:ring-2">
                                 <img
@@ -140,13 +345,13 @@ function HeaderCustomer({ children }) {
                 ) : (
                     <div className="flex items-center space-x-2">
                         <Link
-                            to="/admin/signup"
+                            to="/signup"
                             className="flex h-9 min-w-[120px] items-center justify-center rounded-md border border-primary px-5 text-sm font-medium text-primary-dark transition hover:bg-primary hover:text-white"
                         >
                             Đăng ký
                         </Link>
                         <Link
-                            to="/admin/login"
+                            to="/login"
                             className="flex h-9 min-w-[120px] items-center justify-center rounded-md bg-primary px-5 text-sm font-medium text-white transition hover:bg-primary-dark"
                         >
                             Đăng nhập

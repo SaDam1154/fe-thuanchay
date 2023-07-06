@@ -1,13 +1,14 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 const TABS = [
     { Link: '/', Content: 'Trang chủ' },
     { Link: '/shop', Content: 'Shop' },
-    { Link: '/product-type', Content: 'Danh mục' },
-    { Link: '/contact', Content: 'Liên hệ' },
+    { Link: '/post', Content: 'Bài viết' },
+    { Link: '/cart', Content: 'Giỏ hàng' },
 ];
 function Footer({ children }) {
     const { pathname } = useLocation();
+    const navigate = useNavigate();
     console.log(pathname);
     return (
         <div className="flex flex-col border-t-2 border-gray-200  ">
@@ -24,7 +25,8 @@ function Footer({ children }) {
                             Thuần Chay
                         </div>
                         <div className="text-sm">
-                            mô tả gì đó dài dài dài dài dài dài dài dài dài dài dài dài dài dài dài dài dài dài{' '}
+                            Cửa hàng thuần chay mang đến cho mọi người những món ăn ngon lành mạnh và những kiến thức
+                            hữu ích trong việc duy trì thói quen ăn uống thuần chay!!!
                         </div>
                     </div>
                     <div className="flex flex-col">
@@ -39,9 +41,21 @@ function Footer({ children }) {
                             Zalo: 0365011369
                         </div>
                     </div>
-                    <div className="flex flex-col">
+                    <div
+                        className="flex flex-col"
+                        onClick={() => {
+                            navigate('/shop');
+                        }}
+                    >
                         <div className="text-xl font-semibold">Danh mục sản phẩm</div>
-                        <div className="text-base font-normal hover:cursor-pointer hover:underline ">Tất cả</div>
+                        <div
+                            className="text-base font-normal hover:cursor-pointer hover:underline "
+                            onClick={() => {
+                                navigate('/shop');
+                            }}
+                        >
+                            Tất cả
+                        </div>
                         <div className="text-base font-normal hover:cursor-pointer hover:underline ">Ăn vặt</div>
                         <div className="text-base font-normal hover:cursor-pointer hover:underline ">Gia vị</div>
                         <div className="text-base font-normal hover:cursor-pointer hover:underline ">Thực phẩm khô</div>

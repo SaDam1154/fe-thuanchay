@@ -166,7 +166,7 @@ function Customers() {
                                     <td className="flex w-[200px] items-center justify-center px-2 py-2">
                                         <div className="flex justify-end">
                                             <Link
-                                                to={'/customer/update/' + customer.id}
+                                                to={'/admin/customer/update/' + customer.id}
                                                 className={clsx('btn btn-sm btn-blue', {
                                                     hidden: isHiddenItem('customer/update'),
                                                 })}

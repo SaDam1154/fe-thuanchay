@@ -4,6 +4,7 @@ const initialState = null;
 
 export const accountSlice = createSlice({
     name: 'account',
+    admin: false,
     initialState,
     reducers: {
         login: (state, action) => {

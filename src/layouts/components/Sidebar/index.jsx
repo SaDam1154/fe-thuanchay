@@ -11,7 +11,7 @@ const groupMenus = [
     {
         main: {
             iconClassname: 'fa-solid fa-clipboard',
-            text: 'Hoá đơn',
+            text: 'Đơn hàng',
             link: '/admin/order',
         },
         children: [
@@ -19,6 +19,11 @@ const groupMenus = [
                 iconClassname: 'fa-solid fa-list',
                 text: 'Danh sách',
                 link: '/',
+            },
+            {
+                iconClassname: 'fa-solid fa-circle-plus',
+                text: 'Chốt đơn',
+                link: '/acc',
             },
             {
                 iconClassname: 'fa-solid fa-circle-plus',

@@ -2,9 +2,10 @@ import * as Yup from 'yup';
 import { Formik, useFormik } from 'formik';
 
 import clsx from 'clsx';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { accountActions } from '../../redux/slices/accountSlide';
+import { accountSelector } from '../../redux/selectors';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 
@@ -15,6 +16,7 @@ const validationSchema = Yup.object({
 
 function Login() {
     const dispatch = useDispatch();
+    const account = useSelector(accountSelector);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const showSuccessNoti = () => toast.success('Đăng nhập thành công!');
@@ -40,11 +42,12 @@ function Login() {
             .then((res) => res.json())
             .then((resJson) => {
                 if (resJson.success) {
-                    console.log(resJson.account);
                     setLoading(false);
                     showSuccessNoti();
                     dispatch(accountActions.login(resJson.account));
-                    navigate('/');
+                    if (resJson.account?.role?.name == 'Chủ cửa hàng') navigate('/admin');
+                    else navigate('/');
+                    console.log(resJson.account);
                 } else {
                     setLoading(false);
                     showErorrNoti();
@@ -65,7 +68,7 @@ function Login() {
                             src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
                             alt="logo"
                         />
-                        CỬA HÀNG CÂY XANH
+                        CỬA HÀNG THUẦN CHAY
                     </a>
                     <div className=" w-[448px] rounded-lg bg-white shadow">
                         <div className="space-y-4 p-8">

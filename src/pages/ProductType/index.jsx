@@ -204,7 +204,7 @@ function ProductType() {
                                     <td className="flex w-[200px] min-w-[200px] max-w-[200px] items-center justify-center px-2 py-2">
                                         <div className="flex justify-end">
                                             <Link
-                                                to={'/product-type/update/' + productType.id}
+                                                to={'/admin/product-type/update/' + productType.id}
                                                 className={clsx('btn btn-sm btn-blue', {
                                                     hidden: isHiddenItem('product-type/update'),
                                                 })}

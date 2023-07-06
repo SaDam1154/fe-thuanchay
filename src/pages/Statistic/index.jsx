@@ -24,18 +24,28 @@ function Statistic() {
     });
 
     useEffect(() => {
-        const newMoney = orders?.reduce((prevMoney, currOrder) => {
-            if (isDateBetween(currOrder.createdAt, value.startDate, value.endDate)) {
-                return prevMoney + currOrder.totalPrice;
-            }
-            return prevMoney;
-        }, 0);
-        const newNumber = orders?.filter((order) => {
-            if (isDateBetween(order.createdAt, value.startDate, value.endDate)) {
-                return true;
-            }
-            return false;
-        })?.length;
+        const newMoney = orders
+            ?.filter((order) => {
+                console.log(order.status);
+                if (order.status == 'pending') return order;
+            })
+            ?.reduce((prevMoney, currOrder) => {
+                if (isDateBetween(currOrder.createdAt, value.startDate, value.endDate)) {
+                    return prevMoney + currOrder.totalPrice;
+                }
+                return prevMoney;
+            }, 0);
+        const newNumber = orders
+            ?.filter((order) => {
+                console.log(order.status);
+                if (order.status == 'pending') return order;
+            })
+            ?.filter((order) => {
+                if (isDateBetween(order.createdAt, value.startDate, value.endDate)) {
+                    return true;
+                }
+                return false;
+            })?.length;
 
         setMoney(newMoney);
         setNumber(newNumber);
@@ -193,6 +203,10 @@ function Statistic() {
 
                         <tbody className="flex h-[50vh] w-full flex-col" style={{ overflowY: 'overlay' }}>
                             {orders
+                                .filter((order) => {
+                                    console.log(order.status);
+                                    if (order.status == 'pending') return order;
+                                })
                                 ?.filter((order) => {
                                     if (isDateBetween(order.createdAt, value.startDate, value.endDate)) {
                                         return true;
@@ -200,6 +214,7 @@ function Statistic() {
                                     return false;
                                 })
                                 .reverse()
+
                                 .map((order) => (
                                     <tr
                                         key={order.id}

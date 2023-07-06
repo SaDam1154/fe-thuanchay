@@ -9,6 +9,10 @@ const initialState = {
     details: [],
     totalPrice: 0,
 };
+const initialStateWithCustomer = {
+    details: [],
+    totalPrice: 0,
+};
 
 function updateTotalPrice(state) {
     state.totalPrice = state.details.reduce((prevPrice, currDetail) => {
@@ -60,7 +64,10 @@ export const orderSlice = createSlice({
         updateCustomer: (state, action) => {
             state.customer = action.payload;
         },
-        reset: () => initialState,
+        reset: (state, action) => {
+            (state.details = initialStateWithCustomer.details),
+                (state.totalPrice = initialStateWithCustomer.totalPrice);
+        },
     },
 });
 

@@ -1,8 +1,8 @@
-import PostCardSection from '../../components/PostCardSection';
+import PostCardSection from '../../../components/PostCardSection';
 import { useState, useEffect } from 'react';
 import TabBar from './TabBar';
 import { useSelector } from 'react-redux';
-import { userSelector } from '../../redux/selectors/userSelector';
+import { userSelector } from '../../../redux/selectors/userSelector';
 import { toast, ToastContainer } from 'react-toastify';
 import clsx from 'clsx';
 import { Link, useNavigate } from 'react-router-dom';

@@ -1,12 +1,12 @@
 // Layouts
 import FullLayout from '../layouts/FullLayout';
-import OnlyHeaderLayout from '../layouts/OnlyHeaderLayout2';
-import DefaultLayout from '../layouts/DefaultLayout';
+import PostsCustomerLayout from '../layouts/PostsCustomerLayout';
 import CustomerLayout from '../layouts/CustomerLayout';
 
 // Pages ADMIN
 import Home from '../pages/Home';
 import Order from '../pages/Order';
+import OrderAcc from '../pages/OrderAcc';
 import Accounts from '../pages/Account';
 import AddAccount from '../pages/AddAccount';
 import DetailAccount from '../pages/DetailAccount';
@@ -31,6 +31,7 @@ import AddProductType from '../pages/AddProductType';
 import DetailProductType from '../pages/DetailProductType';
 import UpdateProductType from '../pages/UpdateProductType';
 import DetailOrder from '../pages/DetailOrder';
+import DetailOrderAcc from '../pages/DetailOrderAcc';
 import DetailRole from '../pages/DetailRole';
 import Posts from '../pages/Posts';
 import AddPost from '../pages/AddPost';
@@ -40,6 +41,9 @@ import DetailPost from '../pages/DetailPost';
 //PAGE CUSTOMER
 import HomeCustomer from '../pages/AAACUSTOMER/HomeCustomer';
 import ShopCustomer from '../pages/AAACUSTOMER/ShopCustomer';
+import PostsCustomer from '../pages/AAACUSTOMER/PostsCustomer';
+import CartCustomer from '../pages/AAACUSTOMER/CartCustomer';
+import SignUp from '../pages/AAACUSTOMER/SignUp';
 import ProductTypeCustomer from '../pages/AAACUSTOMER/ProductTypeCustomer';
 import ContactCustomer from '../pages/AAACUSTOMER/ContactCustomer';
 import DetailProductCustomeer from '../pages/AAACUSTOMER/HomeCustomer';
@@ -61,7 +65,16 @@ const publicRoutes = [
         component: ShopCustomer,
         layout: CustomerLayout,
         props: {
-            heading: 'Shop',
+            heading: 'Sản phẩm',
+        },
+    },
+    //CUSTOMER SHOP
+    {
+        path: '/post',
+        component: PostsCustomer,
+        layout: PostsCustomerLayout,
+        props: {
+            heading: 'Danh sách bài viết',
         },
     },
     //CUSTOMER SHOP
@@ -75,11 +88,19 @@ const publicRoutes = [
     },
     //CUSTOMER contact
     {
-        path: '/contact',
-        component: ContactCustomer,
+        path: '/cart',
+        component: CartCustomer,
         layout: CustomerLayout,
         props: {
-            heading: 'Liên hệ',
+            heading: 'Giỏ hàng',
+        },
+    },
+    {
+        path: '/signup',
+        component: SignUp,
+        layout: CustomerLayout,
+        props: {
+            heading: 'Đăng ký tài khoản',
         },
     },
 ];
@@ -104,6 +125,14 @@ const privateRoutes = [
     },
 
     {
+        path: '/admin/order/acc',
+        component: OrderAcc,
+        props: {
+            heading: 'Chốt đơn hàng',
+        },
+    },
+
+    {
         path: '/admin/order/add',
         component: AddOrder,
         props: {
@@ -115,6 +144,13 @@ const privateRoutes = [
         component: DetailOrder,
         props: {
             heading: 'Chi tiết hoá đơn',
+        },
+    },
+    {
+        path: '/admin/order/detailacc/:id',
+        component: DetailOrderAcc,
+        props: {
+            heading: 'Chi tiết đơn hàng',
         },
     },
     {
@@ -204,6 +240,14 @@ const privateRoutes = [
     {
         path: '/admin/post/:id',
         component: DetailPost,
+        props: {
+            heading: 'Chi tiết bài viết',
+        },
+    },
+    {
+        path: '/post/:id',
+        component: DetailPost,
+        layout: PostsCustomerLayout,
         props: {
             heading: 'Chi tiết bài viết',
         },
@@ -321,8 +365,8 @@ const privateRoutes = [
     },
 
     {
-        path: '/admin/login',
-        layout: FullLayout,
+        path: '/login',
+        layout: CustomerLayout,
         component: Login,
     },
 ];

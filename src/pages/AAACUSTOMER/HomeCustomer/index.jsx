@@ -8,15 +8,19 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PriceFormat from '../../../components/PriceFormat';
 import clsx from 'clsx';
-
-import { useSelector } from 'react-redux';
 import { accountSelector } from '../../../redux/selectors';
+import { orderActions } from '../../../redux/slices/orderSlice';
+import { useDispatch, useSelector } from 'react-redux';
+
 const bag2 =
     'https://cdn.vn.alongwalk.info/wp-content/uploads/2023/01/05212422/image-30-hinh-nen-meo-cute-dung-cho-ca-dien-thoai-va-may-tinh-bfa19be160372b49145eb85b3f12be80.jpg';
 
 function HomeCustomer() {
     const refContact = useRef(null);
+    const dispatch = useDispatch();
 
+    const showSuccessNoti = () => toast.success('Thêm thành công!');
+    const showErorrNoti = () => toast.error('Có lỗi xảy ra!');
     const [search, setSearch] = useState('');
     const [products, setProducts] = useState([]);
     const [productTypes, setProductTypes] = useState([]);
@@ -75,7 +79,16 @@ function HomeCustomer() {
     function linkToDetail(id) {
         navigate('/admin/product/detail/' + id);
     }
-
+    function handleAddProduct(product) {
+        dispatch(orderActions.add(product));
+        showSuccessNoti();
+    }
+    function handleDeleteProduct(_id) {
+        dispatch(orderActions.remove(_id));
+    }
+    function handleUpdateQuantityProduct(product, quantity) {
+        dispatch(orderActions.updateQuantity({ product, quantity }));
+    }
     return (
         <div className="flex flex-col justify-between h-[689px] overflow-y-scroll">
             <div className="flex flex-col  justify-around   px-[200px]">
@@ -118,7 +131,7 @@ function HomeCustomer() {
                         </Link>
                     </div>
                     <div id="gr2-item" className="">
-                        <div className="flex mt-8 h-[690px] flex-col overflow-hidden">
+                        <div className="flex mt-8 h-[590px] flex-col overflow-y-hidden">
                             <div className="grid grid-cols-4 gap-4 ">
                                 {products
                                     .filter((product) => {
@@ -173,8 +186,9 @@ function HomeCustomer() {
                                                 </button>
                                                 <button
                                                     className={clsx('btn btn-sm btn-green my-1 w-10/12', {
-                                                        hidden: isHiddenItem('product/delete'),
+                                                        hidden: isHiddenItem('product/read'),
                                                     })}
+                                                    onClick={() => handleAddProduct(product)}
                                                 >
                                                     <span className="pr-1 ">
                                                         <i className="fa-solid fa-cart-shopping"></i>
@@ -199,7 +213,13 @@ function HomeCustomer() {
                         <div className="flex mt-8 h-[290px] flex-col overflow-hidden">
                             <div className="grid grid-cols-4 gap-4 ">
                                 {productTypes.map((product) => (
-                                    <div key={product.id} className=" cursor-pointer select-none rounded  mb-4  ">
+                                    <div
+                                        key={product.id}
+                                        className=" cursor-pointer select-none rounded  mb-4  "
+                                        onClick={() => {
+                                            navigate('/shop');
+                                        }}
+                                    >
                                         <div className="rounded-3xl overflow-hidden items-center justify-center">
                                             <div className="w-[269px] h-[100px] flex items-center justify-center   rounded text-center bg-gradient-to-r from-purple-200 to-pink-200 hover:from-purple-300 hover:to-pink-300">
                                                 <div>{product?.name}</div>

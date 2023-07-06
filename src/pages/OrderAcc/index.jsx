@@ -15,6 +15,7 @@ function Orders() {
     const [search, setSearch] = useState('');
     const [orders, setOrders] = useState([]);
     const navigate = useNavigate();
+    const showSuccessNoti = () => toast.success('Duyệt đơn hàng thành công!');
     const showDeleteNoti = () => toast.success('Xóa hoá đơn thành công!');
     const showErorrNoti = () => toast.error('Có lỗi xảy ra!');
 
@@ -37,6 +38,8 @@ function Orders() {
     }
 
     const account = useSelector(accountSelector);
+    const [loading, setLoading] = useState(false);
+
     function isHiddenItem(functionName) {
         if (!account) {
             return true;
@@ -70,7 +73,36 @@ function Orders() {
                 setOrders([]);
             });
     }
+    function OrderAccept(id) {
+        fetch('http://localhost:5000/api/order/acc/' + id, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ status: 'delivered' }),
+        })
+            .then((res) => res.json())
+            .then((resJson) => {
+                if (resJson.success) {
+                    setLoading(false);
+                    console.log(resJson);
+                    showSuccessNoti();
+                    setTimeout(() => {
+                        navigate('/admin/order');
+                    }, 200);
+                } else {
+                    setLoading(false);
+                    console.log('loi1');
+                    showErorrNoti();
+                }
+            })
+            .catch((err) => {
+                setLoading(false);
+                console.log(err);
 
+                showErorrNoti();
+            });
+    }
     function deleteOrder(id) {
         fetch('http://localhost:5000/api/order/' + id, {
             method: 'DELETE',
@@ -93,7 +125,7 @@ function Orders() {
     }
 
     function linkToDetail(id) {
-        navigate('/admin/order/detail/' + id);
+        navigate('/admin/order/detailacc/' + id);
     }
 
     return (
@@ -174,10 +206,10 @@ function Orders() {
                         <tr className="flex h-11 w-full">
                             <th className="flex w-16 items-center justify-end px-2">Mã</th>
                             <th className="flex flex-[2] items-center justify-start px-4">Tên khách hàng</th>
-                            <th className="flex w-60 items-center justify-start px-2">Số điện thoại</th>
+                            <th className="flex w-40 items-center justify-start px-2">Số điện thoại</th>
                             <th className="flex w-44 items-center justify-end px-2">Tổng tiền (VNĐ)</th>
                             <th className="flex w-56 items-center justify-end px-2">Ngày</th>
-                            <th className="flex w-[140px] items-center justify-center px-2"></th>
+                            <th className="flex w-[240px] items-center justify-center px-2"></th>
                         </tr>
                     </thead>
 
@@ -186,29 +218,59 @@ function Orders() {
                             ?.filter((order) => checkDateInFilter(order))
                             .filter((order) => {
                                 console.log(order.status);
-                                if (order.status == 'pending') return order;
+                                if (order.status != 'pending') return order;
                             })
                             .map((order) => (
                                 <tr
                                     key={order.id}
                                     className="flex min-h-[56px] cursor-pointer border-b border-slate-200 hover:bg-slate-100"
-                                    onClick={() => linkToDetail(order.id)}
                                 >
-                                    <td className="flex w-16 items-center justify-end px-2 py-2">{order.id}</td>
-                                    <td className="flex flex-[2] items-center justify-start px-4 py-2">
+                                    <td
+                                        className="flex w-16 items-center justify-end px-2 py-2"
+                                        onClick={() => linkToDetail(order.id)}
+                                    >
+                                        {order.id}
+                                    </td>
+                                    <td
+                                        className="flex flex-[2] items-center justify-start px-4 py-2"
+                                        onClick={() => linkToDetail(order.id)}
+                                    >
                                         {order.customer?.name}
                                     </td>
-                                    <td className="flex w-60 items-center justify-start px-2 py-2">
+                                    <td
+                                        className="flex w-40 items-center justify-start px-2 py-2"
+                                        onClick={() => linkToDetail(order.id)}
+                                    >
                                         {order.customer?.phone}
                                     </td>
-                                    <td className="flex w-44 items-center justify-end px-2 py-2">
+                                    <td
+                                        className="flex w-44 items-center justify-end px-2 py-2"
+                                        onClick={() => linkToDetail(order.id)}
+                                    >
                                         <PriceFormat>{order.totalPrice}</PriceFormat>
                                     </td>
-                                    <td className="flex w-56 items-center justify-end px-2 py-2">
+                                    <td
+                                        className="flex w-56 items-center justify-end px-2 py-2"
+                                        onClick={() => linkToDetail(order.id)}
+                                    >
                                         {moment(order.createdAt).format('HH:mm:ss DD/MM/YYYY ')}
                                     </td>
-                                    <td className="flex w-[140px] items-center justify-center px-2 py-2">
+                                    <td className="flex w-[240px] items-center justify-center px-2 py-2">
                                         <div className="flex justify-end">
+                                            <button
+                                                className={clsx('btn btn-sm btn-green', {
+                                                    hidden: isHiddenItem('order/delete'),
+                                                })}
+                                                onClick={() => {
+                                                    setLoading(true);
+                                                    OrderAccept(order.id);
+                                                }}
+                                            >
+                                                <span className="pr-1">
+                                                    <i className="fa-solid fa-pen-to-square"></i>
+                                                </span>
+                                                <span>Xác nhận</span>
+                                            </button>
                                             <button
                                                 className={clsx('btn btn-sm btn-red', {
                                                     hidden: isHiddenItem('order/delete'),
