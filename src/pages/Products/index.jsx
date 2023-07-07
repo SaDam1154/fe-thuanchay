@@ -67,6 +67,7 @@ function Products() {
     }, [filters]);
 
     function getProducts() {
+        console.log('http://localhost:5000/api/product?' + `filters=${JSON.stringify(filters)}`);
         fetch('http://localhost:5000/api/product?' + `filters=${JSON.stringify(filters)}`)
             .then((res) => res.json())
             .then((resJson) => {

@@ -103,9 +103,7 @@ function Home() {
             />
             {/* Danh sách post */}
             <div className="flex h-full max-h-[85vh] flex-col" style={{ overflowY: 'overlay' }}>
-                {posts?.map((post, index) => (
-                    <PostCardSection key={index} postInit={post} full={true} />
-                ))}
+                {posts?.map((post, index) => <PostCardSection key={index} postInit={post} full={true} />).reverse()}
                 {!posts ? (
                     <div className="flex items-center ">
                         <h1>Không có bài viết</h1>

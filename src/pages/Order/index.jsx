@@ -188,6 +188,7 @@ function Orders() {
                                 console.log(order.status);
                                 if (order.status == 'pending') return order;
                             })
+                            .reverse()
                             .map((order) => (
                                 <tr
                                     key={order.id}
