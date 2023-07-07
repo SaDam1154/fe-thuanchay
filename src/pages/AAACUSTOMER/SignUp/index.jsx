@@ -84,13 +84,10 @@ function SignUp() {
 
                                 <form onSubmit={form.handleSubmit}>
                                     <div className="flex flex-col">
-                                        <div className="flex">
-                                            <div className="flex flex-col mr-8 w-[400px]">
+                                        <div className="flex w-[800px]">
+                                            <div className="flex flex-col justify-between mr-8 w-[400px]">
                                                 <div className="mb-2">
-                                                    <label
-                                                        htmlFor="name"
-                                                        className="mb-2 select-none  font-semibold text-gray-900  "
-                                                    >
+                                                    <label htmlFor="name" className="block font-medium text-gray-900 ">
                                                         Họ và tên
                                                     </label>
                                                     <input
@@ -177,11 +174,11 @@ function SignUp() {
                                                     </span>
                                                 </div>
                                             </div>
-                                            <div className="flex flex-col">
+                                            <div className="flex flex-col justify-between">
                                                 <div className="mb-2">
                                                     <label
                                                         htmlFor="username"
-                                                        className="mb-2 block font-medium text-gray-900 "
+                                                        className="block font-medium text-gray-900 "
                                                     >
                                                         Tài khoản
                                                     </label>
