@@ -68,7 +68,7 @@ function Login() {
                             src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
                             alt="logo"
                         />
-                        CỬA HÀNG THUẦN CHAY
+                        CỬA HÀNG SẠCH
                     </a>
                     <div className=" w-[448px] rounded-lg bg-white shadow">
                         <div className="space-y-4 p-8">

@@ -94,7 +94,7 @@ function HomeCustomer() {
             <div className="flex flex-col  justify-around   px-[200px]">
                 <div id="gr1" className="flex flex-col justify-around h-[350px]">
                     <div id="gr1-title" className="flex flex-col justify-around h-[200px] ">
-                        <div className="font-semibold text-4xl w-full text-green-600">Thực phẩm thuần chay</div>
+                        <div className="font-semibold text-4xl w-full text-green-600">Thực phẩm sạch</div>
                         <div
                             onClick={() => {
                                 refContact.current?.scrollIntoView({ behavior: 'smooth' });

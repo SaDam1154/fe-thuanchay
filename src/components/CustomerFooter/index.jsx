@@ -22,11 +22,11 @@ function Footer({ children }) {
                                     src="https://png.pngtree.com/png-vector/20220518/ourlarge/pngtree-vegan-icon-png-image_4697174.png"
                                 />
                             </Link>
-                            Thuần Chay
+                            Sạch
                         </div>
                         <div className="text-sm">
-                            Cửa hàng thuần chay mang đến cho mọi người những món ăn ngon lành mạnh và những kiến thức
-                            hữu ích trong việc duy trì thói quen ăn uống thuần chay!!!
+                            Cửa hàng sạch mang đến cho mọi người những món ăn ngon lành mạnh và những kiến thức hữu ích
+                            trong việc duy trì thói quen ăn uống sạch!!!
                         </div>
                     </div>
                     <div className="flex flex-col">

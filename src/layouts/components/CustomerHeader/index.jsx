@@ -143,7 +143,7 @@ function HeaderCustomer({ children }) {
                         src="https://png.pngtree.com/png-vector/20220518/ourlarge/pngtree-vegan-icon-png-image_4697174.png"
                     />
                 </Link>
-                Thuần Chay
+                Sạch
             </div>
 
             <div className="flex space-x-3  mx-20">

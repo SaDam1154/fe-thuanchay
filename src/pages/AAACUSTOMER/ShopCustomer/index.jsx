@@ -97,11 +97,11 @@ function HomeCustomer() {
                             <div className="text-base font-normal w-[125px]">Trang chủ/ Shop/ </div>
                             {/* <div className="text-base font-light"> Ăn vặt</div> */}
                         </div>
-                        <div className="font-semibold text-4xl w-full text-green-600">Thuần Chay</div>
+                        <div className="font-semibold text-4xl w-full text-green-600">Sạch</div>
                         <div className="flex">
                             <div className="text-base font-light w-[300px]">
-                                Tìm kiếm những món ăn đơn giản thuần chay, lành mạnh, giàu chất dinh dưỡng thông qua các
-                                danh mục sản phẩm
+                                Tìm kiếm những món ăn đơn giản sạch, lành mạnh, giàu chất dinh dưỡng thông qua các danh
+                                mục sản phẩm
                             </div>
                         </div>
                     </div>

@@ -141,7 +141,7 @@ function Sidebar() {
         <div className="flex h-full min-w-[240px] flex-col bg-blue-500">
             <header className="mb-8 flex h-16 w-full select-none flex-col items-center justify-center text-white">
                 <div className="text-lg font-extrabold">QUẢN LÝ</div>
-                <div className="font-bold">Thực Phẩm Thuần Chay</div>
+                <div className="font-bold">Thực Phẩm Sạch</div>
             </header>
 
             <ul className="flex flex-1 select-none flex-col space-y-0.5 p-2 " style={{ overflowY: 'overlay' }}>
